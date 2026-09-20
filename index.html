@@ -16,7 +16,7 @@
           fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
           colors: {
             brand: { 50: '#ecfeff', 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' },
-            surface: { dark: '#090d16', card: '#111827', border: '#1f293d', accent: '#1e293b' }
+            surface: { dark: '#080c14', card: '#0f172a', border: '#1e293b', accent: '#1e293b' }
           }
         }
       }
@@ -24,18 +24,36 @@
   </script>
   <style>
     .no-select { -webkit-user-select: none; user-select: none; }
+    /* Pola background bertekstur grid modern */
+    .bg-grid-pattern {
+      background-size: 36px 36px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
   </style>
 </head>
-<body class="bg-surface-dark text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-brand-500 selection:text-white no-select">
+<body class="bg-surface-dark text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-brand-500 selection:text-white no-select relative overflow-x-hidden">
+
+  <!-- EFEK BACKGROUND CAHAYA GLOWING -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute top-[-10%] left-[10%] w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-cyan-600/15 rounded-full blur-[130px]"></div>
+    <div class="absolute top-[25%] right-[-5%] w-[300px] sm:w-[450px] h-[300px] sm:h-[450px] bg-indigo-600/15 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] left-[30%] w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-blue-700/10 rounded-full blur-[140px]"></div>
+  </div>
 
   <!-- NAVBAR -->
-  <header class="sticky top-0 z-40 bg-surface-dark/80 backdrop-blur-xl border-b border-surface-border">
+  <header class="sticky top-0 z-40 bg-surface-dark/85 backdrop-blur-xl border-b border-surface-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-500 to-indigo-600 flex items-center justify-center text-white text-xl font-extrabold shadow-lg shadow-brand-500/25 ring-2 ring-brand-400/20">V</div>
+        <!-- LOGO TOKO (Otomatis tampilkan logo.png, jika belum ada memakai inisial huruf V) -->
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-500 to-indigo-600 flex items-center justify-center text-white text-xl font-extrabold shadow-lg shadow-brand-500/25 ring-2 ring-brand-400/20 overflow-hidden">
+          <img src="logo.png" alt="Logo" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"/>
+          <span style="display:none;">V</span>
+        </div>
         <div>
           <span class="text-xl font-black tracking-tight text-white block">Vanskiess <span class="text-brand-400">Digital</span></span>
-          <span class="text-[10px] text-slate-400 tracking-wider uppercase font-semibold">Premium Store • Jakarta</span>
+          <span class="text-[10px] text-slate-400 tracking-wider uppercase font-semibold">Premium Store • Indonesia</span>
         </div>
       </a>
       <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
@@ -53,7 +71,7 @@
   </header>
 
   <!-- HERO -->
-  <section class="relative overflow-hidden pt-12 pb-16 md:py-20 border-b border-surface-border bg-gradient-to-b from-surface-card/40 to-transparent">
+  <section class="relative overflow-hidden pt-12 pb-16 md:py-20 border-b border-surface-border bg-grid-pattern z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
         <div class="md:col-span-8">
@@ -65,7 +83,7 @@
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-teal-300 to-indigo-400">Digital Premium Terpercaya</span>
           </h1>
           <p class="text-slate-400 text-sm sm:text-base mt-4 max-w-2xl leading-relaxed">
-            Pusat aktivasi hiburan streaming, produktivitas AI, dan tools desain dengan harga reseller termurah di Jakarta. Proses instan dengan dukungan layanan pelanggan profesional.
+            Pusat aktivasi hiburan streaming, produktivitas AI, dan tools desain dengan harga reseller termurah di Indonesia. Proses instan dengan dukungan layanan pelanggan profesional.
           </p>
           <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
             <a href="#katalog" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-brand-500/25 transition">Eksplor Katalog Lengkap</a>
@@ -88,7 +106,7 @@
             </div>
             <div class="flex items-start gap-3">
               <div class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-location-dot"></i></div>
-              <div><p class="font-bold text-white">Domisili Jakarta</p><p class="text-slate-400 text-xs">Layanan terverifikasi dengan sistem administrasi yang amanah.</p></div>
+              <div><p class="font-bold text-white">Layanan Indonesia</p><p class="text-slate-400 text-xs">Layanan terverifikasi dengan sistem administrasi yang amanah.</p></div>
             </div>
           </div>
         </div>
@@ -97,7 +115,7 @@
   </section>
 
   <!-- KATALOG -->
-  <section id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+  <section id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full z-10">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
       <div>
         <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Katalog Aplikasi Premium</h2>
@@ -121,7 +139,7 @@
   </section>
 
   <!-- REKENING -->
-  <section id="metode-bayar" class="border-t border-surface-border bg-surface-card/40 py-16">
+  <section id="metode-bayar" class="border-t border-surface-border bg-surface-card/60 backdrop-blur-md py-16 z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-2xl mx-auto mb-12">
         <span class="text-xs font-bold tracking-wider text-brand-400 uppercase bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">Aman & Terverifikasi</span>
@@ -173,12 +191,33 @@
     </div>
   </section>
 
+  <!-- KEUNGGULAN -->
+  <section id="keunggulan" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full z-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-surface-card border border-surface-border p-6 rounded-2xl">
+        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-bolt"></i></div>
+        <h4 class="font-bold text-base text-white mb-2">Proses Kilat 5 - 15 Menit</h4>
+        <p class="text-xs leading-relaxed text-slate-400">Setelah konfirmasi transaksi ke admin WhatsApp, tim kami segera menyiapkan kredensial atau aktivasi akun Anda.</p>
+      </div>
+      <div class="bg-surface-card border border-surface-border p-6 rounded-2xl">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-shield-check"></i></div>
+        <h4 class="font-bold text-base text-white mb-2">Garansi Sesuai Durasi</h4>
+        <p class="text-xs leading-relaxed text-slate-400">Seluruh paket didukung full garansi pemakaian legal. Mengalami kendala reset login? Admin siap merespons cepat.</p>
+      </div>
+      <div class="bg-surface-card border border-surface-border p-6 rounded-2xl">
+        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-user-shield"></i></div>
+        <h4 class="font-bold text-base text-white mb-2">Data Pengguna Terlindungi</h4>
+        <p class="text-xs leading-relaxed text-slate-400">Tidak membutuhkan kata sandi email pribadi untuk varian aktivasi invite/owner tertentu. Aman, privat, dan terjamin.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
-  <footer class="mt-auto border-t border-surface-border bg-surface-dark py-10">
+  <footer class="mt-auto border-t border-surface-border bg-surface-dark py-10 z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-500">
       <div class="flex flex-col items-center md:items-start gap-1">
         <span class="text-sm font-bold text-slate-300 tracking-wide">Vanskiess Digital Premium</span>
-        <p>Alamat Toko: Jakarta, Indonesia • WhatsApp Admin: 085178422563[span_0](start_span)[span_0](end_span)</p>
+        <p>Alamat Toko: Indonesia • WhatsApp Admin: 085178422563[span_3](start_span)[span_3](end_span)</p>
       </div>
       <div class="text-center md:text-right">
         <p>&copy; 2026 Vanskiess Digital Premium. Seluruh hak cipta dilindungi.</p>
@@ -239,6 +278,7 @@
     </div>
   </div>
 
+  <!-- SCRIPT LOGIKA DATA DAN INTERAKSI -->
   <script>
     const rawData = [
       { name: "Netflix Premium", image: "Netflix premium.png", category: "STREAMING", icon: "fa-film", color: "text-red-500", variants: [
