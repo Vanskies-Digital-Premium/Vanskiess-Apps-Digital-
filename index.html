@@ -420,7 +420,7 @@
     let currentCategory = 'ALL';
     let selectedApp = null;
 
-    function renderCatalog() {
+        function renderCatalog() {
       const grid = document.getElementById("productGrid");
       const search = document.getElementById("searchApp").value.toLowerCase();
       const filtered = rawData.filter(item => {
@@ -436,11 +436,16 @@
 
       grid.innerHTML = filtered.map((item) => {
         const startingPrice = item.variants[0].price;
+        // Membaca gambar jika ada, jika tidak pakai ikon
+        const visualHtml = item.image 
+          ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover rounded-xl" />`
+          : `<i class="fa-solid ${item.icon}"></i>`;
+
         return `
           <div onclick="openModal('${item.name}')" class="cursor-pointer bg-surface-card hover:bg-surface-accent border border-surface-border hover:border-brand-500/50 rounded-2xl p-4 sm:p-5 transition-all duration-200 transform hover:-translate-y-1 shadow-sm flex flex-col justify-between group">
             <div>
               <div class="w-12 h-12 rounded-xl bg-surface-dark/90 flex items-center justify-center text-2xl ${item.color} mb-3 group-hover:scale-110 transition shadow-inner">
-                <i class="fa-solid ${item.icon}"></i>
+                ${visualHtml}
               </div>
               <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-brand-400 transition">${item.name}</h3>
               <p class="text-[11px] text-slate-400 mt-1">${item.variants.length} Varian Durasi</p>
@@ -454,23 +459,16 @@
       }).join("");
     }
 
-    function setCategory(cat) {
-      currentCategory = cat;
-      document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.classList.remove('bg-brand-500', 'text-white');
-        btn.classList.add('bg-surface-card', 'text-slate-400', 'border', 'border-surface-border');
-      });
-      event.target.classList.add('bg-brand-500', 'text-white');
-      event.target.classList.remove('bg-surface-card', 'text-slate-400', 'border', 'border-surface-border');
-      renderCatalog();
-    }
-
     function openModal(appName) {
       selectedApp = rawData.find(a => a.name === appName);
       if(!selectedApp) return;
 
       document.getElementById("modalAppName").innerText = selectedApp.name;
-      document.getElementById("modalIcon").innerHTML = `<i class="fa-solid ${selectedApp.icon} ${selectedApp.color}"></i>`;
+      
+      const visualHtml = selectedApp.image 
+        ? `<img src="${selectedApp.image}" class="w-full h-full object-cover rounded-xl" />`
+        : `<i class="fa-solid ${selectedApp.icon} ${selectedApp.color}"></i>`;
+      document.getElementById("modalIcon").innerHTML = visualHtml;
 
       const select = document.getElementById("selectVariant");
       select.innerHTML = selectedApp.variants.map((v, i) => `
@@ -481,6 +479,7 @@
       document.getElementById("orderModal").classList.remove("hidden");
       document.getElementById("orderModal").classList.add("flex");
     }
+
 
     function updatePriceDisplay() {
       const select = document.getElementById("selectVariant");
