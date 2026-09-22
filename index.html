@@ -322,8 +322,517 @@
 
     <div class="flex flex-col lg:flex-row gap-4 justify-between bg-brand-card/90 p-4 rounded-3xl border border-brand-border shadow-xl">
       <div class="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 scrollbar-none">
-        <button onclick="setCategory('all')" id="btn-all" class="cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-yellow-400 text-black transition whitespace-nowrap shadow-md">Semua (103)</button>
+        <button onclick="setCategory('all')" id="btn-all" class="cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-yellow-400 text-black transition whitespace-nowrap shadow-md">Semua</button>
         <button onclick="setCategory('Streaming')" id="btn-streaming" class="cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-slate-900 text-slate-300 hover:text-yellow-400 hover:bg-slate-800 transition whitespace-nowrap"><i class="fa-solid fa-circle-play mr-1.5 text-red-400"></i> Streaming</button>
         <button onclick="setCategory('Software')" id="btn-software" class="cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-slate-900 text-slate-300 hover:text-yellow-400 hover:bg-slate-800 transition whitespace-nowrap"><i class="fa-solid fa-laptop-code mr-1.5 text-blue-400"></i> Software & Desain</button>
         <button onclick="setCategory('AI Tools')" id="btn-ai-tools" class="cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-slate-900 text-slate-300 hover:text-yellow-400 hover:bg-slate-800 transition whitespace-nowrap"><i class="fa-solid fa-brain mr-1.5 text-emerald-400"></i> AI Tools</button>
-        <button onclick="setCategory('VPN & Utilitas')" id="btn-vpn--utilitas" class="cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-slate-900 text-slate-300 hover:text-yellow-400 hover:bg-slate-800 transition whitespace-nowrap"><i cl
+        <button onclick="setCategory('VPN & Utilitas')" id="btn-vpn--utilitas" class="cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-slate-900 text-slate-300 hover:text-yellow-400 hover:bg-slate-800 transition whitespace-nowrap"><i class="fa-solid fa-shield mr-1.5 text-yellow-400"></i> VPN & Utilitas</button>
+        <button onclick="setCategory('Hiburan')" id="btn-hiburan" class="cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-slate-900 text-slate-300 hover:text-yellow-400 hover:bg-slate-800 transition whitespace-nowrap"><i class="fa-solid fa-gamepad mr-1.5 text-pink-400"></i> Hiburan & Social</button>
+      </div>
+
+      <div class="flex items-center gap-2 self-end lg:self-center">
+        <label for="sortOrder" class="text-xs text-slate-400 whitespace-nowrap font-medium">Urutan Tampilan:</label>
+        <select id="sortOrder" onchange="renderCatalog()" class="bg-slate-900 border border-brand-border text-xs rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-yellow-400 font-semibold cursor-pointer">
+          <option value="popular">🔥 Terlaris (Qty Terjual)</option>
+          <option value="price_asc">💰 Harga Termurah</option>
+          <option value="price_desc">💎 Harga Tertinggi</option>
+          <option value="asc">🔤 Abjad (A - Z)</option>
+          <option value="desc">🔤 Abjad (Z - A)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- KATALOG GRID -->
+  <main class="max-w-7xl mx-auto px-4 pb-20 w-full flex-1">
+    <div class="flex items-center justify-between text-xs text-slate-400 mb-5 font-semibold">
+      <span id="resultCount">Memuat katalog Vanskiess Apps Digital...</span>
+      <span class="text-yellow-400 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Harga Termurah Terverifikasi</span>
+    </div>
+    <div id="productContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
+
+  <!-- FOOTER & ALAMAT PERUSAHAAN -->
+  <footer class="border-t border-brand-border bg-black py-12 text-sm text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 rounded-xl bg-yellow-400 flex items-center justify-center text-black font-black">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <div>
+            <span class="font-heading font-extrabold text-lg text-white">VANSKIESS <span class="text-yellow-400">APPS DIGITAL</span></span>
+            <span class="block text-[10px] text-slate-400 font-semibold uppercase">PT VANSKIESS AGENCY</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+          Penyedia resmi akun digital premium, lisensi OS, editing tools, dan AI service legal di bawah naungan <strong>PT Vanskiess Agency</strong> dengan lebih dari <strong>2 Ribu++ Member Aktif</strong>.
+        </p>
+        <div class="flex items-center gap-3">
+          <a href="https://instagram.com/vanskiess.apps.digital" target="_blank" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-pink-400 hover:bg-yellow-400 hover:text-black transition">
+            <i class="fa-brands fa-instagram text-lg"></i>
+          </a>
+          <a href="https://wa.me/6285178422563" target="_blank" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-emerald-400 hover:bg-yellow-400 hover:text-black transition">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="text-white font-extrabold text-xs uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-building-flag text-yellow-400"></i> Alamat Perusahaan
+        </h4>
+        <div class="bg-brand-card p-4 rounded-2xl border border-brand-border text-xs space-y-2">
+          <p class="font-bold text-yellow-400">PT Vanskiess Agency</p>
+          <p class="text-slate-300 leading-relaxed">
+            Komplek TNI AD, Berlan, Kec. Matraman, Kel. Kebon Manggis, Jakarta Timur.
+          </p>
+          <div class="pt-2 border-t border-slate-800 text-[11px] text-yellow-400 font-semibold flex items-center gap-1">
+            <i class="fa-solid fa-motorcycle"></i> Layanan COD Khusus Wilayah Jakarta Pusat (Jakpus)
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="text-white font-extrabold text-xs uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-credit-card text-yellow-400"></i> Kontak & Rekening Resmi
+        </h4>
+        <div class="bg-brand-card p-4 rounded-2xl border border-brand-border text-xs space-y-2">
+          <div class="flex justify-between">
+            <span class="text-slate-400">WhatsApp Admin:</span>
+            <a href="https://wa.me/6285178422563" class="text-yellow-400 font-bold hover:underline">0851-7842-2563</a>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Instagram Resmi:</span>
+            <a href="https://instagram.com/vanskiess.apps.digital" target="_blank" class="text-pink-400 font-semibold hover:underline">@vanskiess.apps.digital</a>
+          </div>
+          <div class="pt-2 border-t border-slate-800 text-[11px] text-red-400 font-extrabold">
+            ⚠️ Rekening Resmi HANYA a/n: <span class="text-yellow-400 uppercase">ADI IRFANSYAH</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 border-t border-slate-900 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+      <p>© 2026 PT Vanskiess Agency (Vanskiess Apps Digital). Hak Cipta Dilindungi.</p>
+      <div class="flex items-center gap-4">
+        <span>Lisensi Legal & Garansi</span>
+        <span>•</span>
+        <span>Keamanan Terjamin</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL CHECKOUT -->
+  <div id="checkoutModal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+    <div class="bg-[#11151F] border-2 border-yellow-400/50 rounded-3xl max-w-md w-full p-6 max-h-[92vh] overflow-y-auto shadow-2xl shadow-yellow-400/10">
+      <div class="flex justify-between items-start pb-3 border-b border-brand-border">
+        <div>
+          <span class="text-[10px] font-black bg-yellow-400 text-black px-2 py-0.5 rounded tracking-wide uppercase">FORMULIR PESANAN RESMI</span>
+          <h3 id="modalName" class="text-lg font-heading font-black text-white mt-1 leading-snug">Detail Produk</h3>
+          <span id="modalAccountType" class="text-xs text-yellow-400 font-semibold block"></span>
+        </div>
+        <button onclick="closeCheckout()" class="text-slate-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="mt-4 space-y-4 text-sm">
+        <div class="bg-black/60 p-4 rounded-2xl border border-brand-border space-y-2">
+          <div class="flex justify-between text-xs text-slate-400">
+            <span>Harga Termurah Satuan:</span>
+            <span id="modalUnitPrice" class="font-extrabold text-yellow-400 text-sm"></span>
+          </div>
+          <div class="flex justify-between text-xs text-slate-400">
+            <span>Reputasi Toko:</span>
+            <span id="modalStatStatus" class="font-semibold text-slate-200"></span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Jumlah Pesanan (Pcs):</label>
+          <input type="number" id="inputQty" value="1" min="1" oninput="calculateTotal()" class="w-full bg-slate-900 border border-brand-border focus:border-yellow-400 rounded-xl px-3.5 py-2.5 text-white font-bold text-sm focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Email / No. HP Penerima Akun:</label>
+          <input type="text" id="inputNote" placeholder="Contoh: kirim ke akunuser@gmail.com" class="w-full bg-slate-900 border border-brand-border focus:border-yellow-400 rounded-xl px-3.5 py-2.5 text-white text-sm focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Pilihan Metode Bayar:</label>
+          <select id="inputPayment" class="w-full bg-slate-900 border border-brand-border focus:border-yellow-400 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none font-medium">
+            <option value="BCA (a/n ADI IRFANSYAH)">Bank BCA</option>
+            <option value="QRIS (Semua E-Wallet/Bank)">QRIS Instant (DANA/OVO/GoPay/BCA)</option>
+            <option value="DANA (a/n ADI IRFANSYAH)">DANA</option>
+            <option value="OVO (a/n ADI IRFANSYAH)">OVO</option>
+            <option value="SeaBank (a/n ADI IRFANSYAH)">SeaBank</option>
+            <option value="ShopeePay (a/n ADI IRFANSYAH)">ShopeePay</option>
+            <option value="COD Jakarta Pusat (Setelah Akun Jadi)">COD Khusus Jakarta Pusat (Bayar di Tempat)</option>
+          </select>
+        </div>
+
+        <div class="p-3 bg-red-950/40 border border-red-800/80 rounded-xl text-[11px] text-red-300">
+          <i class="fa-solid fa-shield-exclamation mr-1 text-yellow-400"></i>
+          Semua transfer wajib hanya ke rekening atas nama <strong>ADI IRFANSYAH</strong>.
+        </div>
+
+        <div class="p-4 bg-yellow-400/10 border-2 border-yellow-400/40 rounded-2xl flex justify-between items-center">
+          <span class="text-xs text-yellow-300 font-bold uppercase tracking-wider">Total Pembayaran:</span>
+          <span id="modalTotalPrice" class="text-xl font-heading font-black text-yellow-400">Rp 0</span>
+        </div>
+
+        <button onclick="executeCheckout()" class="w-full py-3.5 bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 hover:from-yellow-300 hover:to-amber-300 active:scale-[0.98] text-black font-extrabold text-sm rounded-xl flex items-center justify-center gap-2 shadow-xl shadow-yellow-500/25 transition">
+          <i class="fa-brands fa-whatsapp text-xl"></i>
+          Konfirmasi & Beli via WhatsApp
+        </button>
+
+        <div class="pt-4 border-t border-brand-border">
+          <div class="flex justify-between items-center mb-3">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Ulasan Pembeli Terverifikasi</h4>
+            <span id="modalReviewSummary" class="text-xs text-yellow-400 font-bold"></span>
+          </div>
+          <div id="modalReviewList" class="space-y-2.5 max-h-40 overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
+      if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) { e.preventDefault(); return false; }
+      if (e.ctrlKey && ['u','U','s','S'].includes(e.key)) { e.preventDefault(); return false; }
+    });
+
+    const WA_ADMIN = "6285178422563";
+    const REK_NAME = "ADI IRFANSYAH";
+
+    const defaultProducts = [
+      {"id": "PRD-001", "name": "Netflix - 1 Bulan 1 Profil (Sharing)", "category": "Streaming", "type": "Akun Sharing UHD 4K", "price": 18500, "rating": 4.9, "sold": 37, "icon": "fa-brands fa-neos", "brand_tag": "NETFLIX", "color": "text-red-500", "bg": "bg-red-500/10", "border": "border-red-500/30"},
+      {"id": "PRD-002", "name": "Netflix - 1 Bulan Private (5 Profil)", "category": "Streaming", "type": "Akun Private UHD 4K", "price": 98000, "rating": 4.9, "sold": 136, "icon": "fa-brands fa-neos", "brand_tag": "NETFLIX", "color": "text-red-500", "bg": "bg-red-500/10", "border": "border-red-500/30"},
+      {"id": "PRD-003", "name": "Netflix - 3 Bulan Private", "category": "Streaming", "type": "Akun Private UHD 4K", "price": 285000, "rating": 4.8, "sold": 51, "icon": "fa-brands fa-neos", "brand_tag": "NETFLIX", "color": "text-red-500", "bg": "bg-red-500/10", "border": "border-red-500/30"},
+      {"id": "PRD-004", "name": "Spotify - 1 Bulan Premium Individual", "category": "Streaming", "type": "Invite Family Plan", "price": 8500, "rating": 4.9, "sold": 45, "icon": "fa-brands fa-spotify", "brand_tag": "SPOTIFY", "color": "text-green-500", "bg": "bg-green-500/10", "border": "border-green-500/30"},
+      {"id": "PRD-005", "name": "Spotify - 3 Bulan Premium Individual", "category": "Streaming", "type": "Invite Family Plan", "price": 22000, "rating": 4.9, "sold": 159, "icon": "fa-brands fa-spotify", "brand_tag": "SPOTIFY", "color": "text-green-500", "bg": "bg-green-500/10", "border": "border-green-500/30"},
+      {"id": "PRD-006", "name": "Spotify - 1 Bulan Akun Baru Private", "category": "Streaming", "type": "Akun Baru Full Garansi", "price": 12000, "rating": 4.8, "sold": 37, "icon": "fa-brands fa-spotify", "brand_tag": "SPOTIFY", "color": "text-green-500", "bg": "bg-green-500/10", "border": "border-green-500/30"},
+      {"id": "PRD-007", "name": "YouTube Premium - 1 Bulan Family Invite", "category": "Streaming", "type": "Invite Group", "price": 6000, "rating": 4.9, "sold": 61, "icon": "fa-brands fa-youtube", "brand_tag": "YOUTUBE", "color": "text-red-600", "bg": "bg-red-600/10", "border": "border-red-600/30"},
+      {"id": "PRD-008", "name": "YouTube Premium - 3 Bulan Family Invite", "category": "Streaming", "type": "Invite Group", "price": 16500, "rating": 4.9, "sold": 98, "icon": "fa-brands fa-youtube", "brand_tag": "YOUTUBE", "color": "text-red-600", "bg": "bg-red-600/10", "border": "border-red-600/30"},
+      {"id": "PRD-009", "name": "YouTube Premium - 1 Bulan Individual No Pass", "category": "Streaming", "type": "Direct Upgrade Email", "price": 11000, "rating": 4.9, "sold": 108, "icon": "fa-brands fa-youtube", "brand_tag": "YOUTUBE", "color": "text-red-600", "bg": "bg-red-600/10", "border": "border-red-600/30"},
+      {"id": "PRD-010", "name": "Disney+ Hotstar - 1 Bulan Sharing (1 Device)", "category": "Streaming", "type": "Akun Sharing", "price": 14500, "rating": 4.8, "sold": 130, "icon": "fa-solid fa-wand-magic-sparkles", "brand_tag": "DISNEY+", "color": "text-blue-400", "bg": "bg-blue-500/10", "border": "border-blue-500/30"},
+      {"id": "PRD-011", "name": "Disney+ Hotstar - 1 Bulan Private Basic/Premium", "category": "Streaming", "type": "Akun Private (No HP/Email)", "price": 42000, "rating": 4.9, "sold": 158, "icon": "fa-solid fa-wand-magic-sparkles", "brand_tag": "DISNEY+", "color": "text-blue-400", "bg": "bg-blue-500/10", "border": "border-blue-500/30"},
+      {"id": "PRD-012", "name": "Vidio - 1 Bulan Platinum Sharing", "category": "Streaming", "type": "Akun Sharing All Device", "price": 12000, "rating": 4.9, "sold": 91, "icon": "fa-solid fa-circle-play", "brand_tag": "VIDIO", "color": "text-red-400", "bg": "bg-red-500/10", "border": "border-red-500/30"},
+      {"id": "PRD-013", "name": "Vidio - 1 Bulan Platinum Private", "category": "Streaming", "type": "Akun Private", "price": 28000, "rating": 4.8, "sold": 140, "icon": "fa-solid fa-circle-play", "brand_tag": "VIDIO", "color": "text-red-400", "bg": "bg-red-500/10", "border": "border-red-500/30"},
+      {"id": "PRD-014", "name": "Vidio - 1 Bulan Diamond (EPL) Sharing", "category": "Streaming", "type": "Akun Sharing EPL + All", "price": 45000, "rating": 4.9, "sold": 54, "icon": "fa-solid fa-circle-play", "brand_tag": "VIDIO", "color": "text-red-400", "bg": "bg-red-500/10", "border": "border-red-500/30"},
+      {"id": "PRD-015", "name": "Prime Video - 1 Bulan Sharing", "category": "Streaming", "type": "Akun Sharing", "price": 7500, "rating": 4.9, "sold": 148, "icon": "fa-brands fa-amazon", "brand_tag": "PRIME", "color": "text-sky-400", "bg": "bg-sky-500/10", "border": "border-sky-500/30"},
+      {"id": "PRD-016", "name": "Prime Video - 1 Bulan Private", "category": "Streaming", "type": "Akun Private", "price": 18000, "rating": 4.8, "sold": 124, "icon": "fa-brands fa-amazon", "brand_tag": "PRIME", "color": "text-sky-400", "bg": "bg-sky-500/10", "border": "border-sky-500/30"},
+      {"id": "PRD-017", "name": "VIU - 1 Bulan Premium Private", "category": "Streaming", "type": "Upgrade Email Pribadi", "price": 4500, "rating": 4.9, "sold": 77, "icon": "fa-solid fa-play", "brand_tag": "VIU", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-018", "name": "VIU - 6 Bulan Premium Private", "category": "Streaming", "type": "Upgrade Email Pribadi", "price": 16000, "rating": 4.9, "sold": 45, "icon": "fa-solid fa-play", "brand_tag": "VIU", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-019", "name": "iQiyi - 1 Bulan VIP Sharing", "category": "Streaming", "type": "Akun Sharing VIP Standar", "price": 6500, "rating": 4.9, "sold": 117, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-020", "name": "iQiyi - 1 Bulan VIP Private", "category": "Streaming", "type": "Akun Private VIP Diamond", "price": 18500, "rating": 4.8, "sold": 149, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-021", "name": "WeTV - 1 Bulan VIP Sharing", "category": "Streaming", "type": "Akun Sharing", "price": 7000, "rating": 4.8, "sold": 138, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-022", "name": "WeTV - 1 Bulan VIP Private", "category": "Streaming", "type": "Akun Private", "price": 19000, "rating": 4.9, "sold": 92, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-023", "name": "Bstation / Bilibili - 1 Bulan Premium Sharing", "category": "Streaming", "type": "Akun Sharing", "price": 5500, "rating": 4.9, "sold": 120, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-024", "name": "Bstation / Bilibili - 1 Tahun Premium Private", "category": "Streaming", "type": "Akun Private Email", "price": 38000, "rating": 4.8, "sold": 115, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-025", "name": "Crunchyroll - 1 Bulan Mega Fan Private", "category": "Streaming", "type": "Akun Private", "price": 12000, "rating": 4.9, "sold": 142, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-026", "name": "Apple Music - 1 Bulan Sharing Family", "category": "Streaming", "type": "Invite Apple Family", "price": 8000, "rating": 4.8, "sold": 151, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-027", "name": "SoundCloud - 1 Bulan Go+ Private", "category": "Streaming", "type": "Akun Private", "price": 15000, "rating": 4.7, "sold": 129, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-028", "name": "Deezer - 1 Bulan Premium HiFi", "category": "Streaming", "type": "Akun Private", "price": 14000, "rating": 4.8, "sold": 39, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-029", "name": "Canva Pro - 1 Bulan Desain Tim/Member", "category": "Software", "type": "Invite Email Sendiri", "price": 500, "rating": 4.9, "sold": 71, "icon": "fa-solid fa-palette", "brand_tag": "CANVA PRO", "color": "text-cyan-400", "bg": "bg-cyan-500/10", "border": "border-cyan-500/30"},
+      {"id": "PRD-030", "name": "Canva Pro - 1 Tahun Desain Tim/Member", "category": "Software", "type": "Invite Email Sendiri", "price": 4500, "rating": 4.9, "sold": 63, "icon": "fa-solid fa-palette", "brand_tag": "CANVA PRO", "color": "text-cyan-400", "bg": "bg-cyan-500/10", "border": "border-cyan-500/30"},
+      {"id": "PRD-031", "name": "Canva Pro - Lifetime / Edu Premium", "category": "Software", "type": "Invite Akun Pribadi", "price": 9000, "rating": 4.8, "sold": 82, "icon": "fa-solid fa-palette", "brand_tag": "CANVA PRO", "color": "text-cyan-400", "bg": "bg-cyan-500/10", "border": "border-cyan-500/30"},
+      {"id": "PRD-032", "name": "CapCut Pro - 1 Bulan Sharing", "category": "Software", "type": "Akun Sharing PC/Mobile", "price": 7500, "rating": 4.9, "sold": 163, "icon": "fa-solid fa-scissors", "brand_tag": "CAPCUT", "color": "text-white", "bg": "bg-slate-700/30", "border": "border-slate-500/30"},
+      {"id": "PRD-033", "name": "CapCut Pro - 1 Bulan Private", "category": "Software", "type": "Akun Private Login Sendiri", "price": 18500, "rating": 4.9, "sold": 125, "icon": "fa-solid fa-scissors", "brand_tag": "CAPCUT", "color": "text-white", "bg": "bg-slate-700/30", "border": "border-slate-500/30"},
+      {"id": "PRD-034", "name": "CapCut Pro - 1 Tahun Sharing/Private", "category": "Software", "type": "Akun Bergaransi", "price": 45000, "rating": 4.8, "sold": 150, "icon": "fa-solid fa-scissors", "brand_tag": "CAPCUT", "color": "text-white", "bg": "bg-slate-700/30", "border": "border-slate-500/30"},
+      {"id": "PRD-035", "name": "Adobe Creative Cloud - 1 Bulan All Apps 100GB", "category": "Software", "type": "Redeem Code / Invite Team", "price": 75000, "rating": 4.8, "sold": 68, "icon": "fa-solid fa-cubes", "brand_tag": "ADOBE CC", "color": "text-red-500", "bg": "bg-red-500/10", "border": "border-red-500/30"},
+      {"id": "PRD-036", "name": "Adobe Creative Cloud - 3 Bulan All Apps", "category": "Software", "type": "Invite Team Email", "price": 195000, "rating": 4.8, "sold": 55, "icon": "fa-solid fa-cubes", "brand_tag": "ADOBE CC", "color": "text-red-500", "bg": "bg-red-500/10", "border": "border-red-500/30"},
+      {"id": "PRD-037", "name": "Picsart Gold - 1 Bulan Private", "category": "Software", "type": "Akun Private Full Garansi", "price": 6000, "rating": 4.9, "sold": 136, "icon": "fa-solid fa-camera-retro", "brand_tag": "DESIGN", "color": "text-pink-400", "bg": "bg-pink-500/10", "border": "border-pink-500/30"},
+      {"id": "PRD-038", "name": "Picsart Gold - 1 Tahun Private", "category": "Software", "type": "Akun Private Full Garansi", "price": 18000, "rating": 4.8, "sold": 93, "icon": "fa-solid fa-camera-retro", "brand_tag": "DESIGN", "color": "text-pink-400", "bg": "bg-pink-500/10", "border": "border-pink-500/30"},
+      {"id": "PRD-039", "name": "VSCO X - 1 Tahun Full Pack Filters", "category": "Software", "type": "Akun Sharing / Private iOS/Android", "price": 9500, "rating": 4.8, "sold": 139, "icon": "fa-solid fa-camera-retro", "brand_tag": "DESIGN", "color": "text-pink-400", "bg": "bg-pink-500/10", "border": "border-pink-500/30"},
+      {"id": "PRD-040", "name": "Remini - 1 Bulan Web Pro", "category": "Software", "type": "Akun Private / Sharing", "price": 12000, "rating": 4.8, "sold": 133, "icon": "fa-solid fa-camera-retro", "brand_tag": "DESIGN", "color": "text-pink-400", "bg": "bg-pink-500/10", "border": "border-pink-500/30"},
+      {"id": "PRD-041", "name": "Lightroom Mobile - Full Preset + Premium", "category": "Software", "type": "Akun Login iOS / Android", "price": 8500, "rating": 4.9, "sold": 112, "icon": "fa-solid fa-camera-retro", "brand_tag": "DESIGN", "color": "text-pink-400", "bg": "bg-pink-500/10", "border": "border-pink-500/30"},
+      {"id": "PRD-042", "name": "Freepik - 1 Bulan Premium Sharing", "category": "Software", "type": "Direct Downloader / Akun", "price": 18000, "rating": 4.8, "sold": 38, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-043", "name": "Envato Elements - 1 Bulan Sharing Downloader", "category": "Software", "type": "Web Downloader Access", "price": 24000, "rating": 4.8, "sold": 156, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-044", "name": "Motion Array - 1 Bulan Sharing Access", "category": "Software", "type": "Sewa Akun Download", "price": 29000, "rating": 4.7, "sold": 113, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-045", "name": "CorelDRAW - CorelDRAW Graphics Suite 2024", "category": "Software", "type": "Lisensi Aktivasi Permanen", "price": 35000, "rating": 4.9, "sold": 74, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-046", "name": "Wondershare Filmora - Filmora 13/14 Lifetime", "category": "Software", "type": "Lisensi Aktivasi Lifetime", "price": 30000, "rating": 4.9, "sold": 97, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-047", "name": "ChatGPT Plus (GPT-4o) - 1 Bulan Sharing Akun", "category": "AI Tools", "type": "Akun Sharing Resmi Web", "price": 35000, "rating": 4.9, "sold": 187, "icon": "fa-solid fa-robot", "brand_tag": "CHATGPT", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-048", "name": "ChatGPT Plus (GPT-4o) - 1 Bulan Private Akun", "category": "AI Tools", "type": "Akun Private Email Pembeli", "price": 285000, "rating": 4.9, "sold": 123, "icon": "fa-solid fa-robot", "brand_tag": "CHATGPT", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-049", "name": "Claude Pro (Anthropic) - 1 Bulan Sharing Akun", "category": "AI Tools", "type": "Akun Sharing Login Web", "price": 42000, "rating": 4.8, "sold": 122, "icon": "fa-solid fa-brain", "brand_tag": "CLAUDE AI", "color": "text-amber-400", "bg": "bg-amber-500/10", "border": "border-amber-500/30"},
+      {"id": "PRD-050", "name": "Claude Pro (Anthropic) - 1 Bulan Private Akun", "category": "AI Tools", "type": "Akun Private Dedicated", "price": 295000, "rating": 4.8, "sold": 67, "icon": "fa-solid fa-brain", "brand_tag": "CLAUDE AI", "color": "text-amber-400", "bg": "bg-amber-500/10", "border": "border-amber-500/30"},
+      {"id": "PRD-051", "name": "Midjourney - 1 Bulan Basic Plan (Shared)", "category": "AI Tools", "type": "Server Discord Sharing", "price": 48000, "rating": 4.8, "sold": 159, "icon": "fa-solid fa-sailboat", "brand_tag": "MIDJOURNEY", "color": "text-indigo-400", "bg": "bg-indigo-500/10", "border": "border-indigo-500/30"},
+      {"id": "PRD-052", "name": "Midjourney - 1 Bulan Standard Plan Private", "category": "AI Tools", "type": "Akun Discord Private", "price": 370000, "rating": 4.8, "sold": 156, "icon": "fa-solid fa-sailboat", "brand_tag": "MIDJOURNEY", "color": "text-indigo-400", "bg": "bg-indigo-500/10", "border": "border-indigo-500/30"},
+      {"id": "PRD-053", "name": "QuillBot - 1 Bulan Premium Sharing", "category": "AI Tools", "type": "Login Extension / Akun", "price": 7000, "rating": 4.9, "sold": 133, "icon": "fa-solid fa-feather-pointed", "brand_tag": "AI STUDY", "color": "text-teal-400", "bg": "bg-teal-500/10", "border": "border-teal-500/30"},
+      {"id": "PRD-054", "name": "QuillBot - 1 Tahun Premium Private", "category": "AI Tools", "type": "Akun Private Email", "price": 38000, "rating": 4.9, "sold": 97, "icon": "fa-solid fa-feather-pointed", "brand_tag": "AI STUDY", "color": "text-teal-400", "bg": "bg-teal-500/10", "border": "border-teal-500/30"},
+      {"id": "PRD-055", "name": "Grammarly - 1 Bulan Premium Sharing", "category": "AI Tools", "type": "Akun Sharing Extension", "price": 8000, "rating": 4.9, "sold": 40, "icon": "fa-solid fa-feather-pointed", "brand_tag": "AI STUDY", "color": "text-teal-400", "bg": "bg-teal-500/10", "border": "border-teal-500/30"},
+      {"id": "PRD-056", "name": "Grammarly - 1 Tahun Premium Private", "category": "AI Tools", "type": "Akun Private Edu/Individu", "price": 35000, "rating": 4.9, "sold": 53, "icon": "fa-solid fa-feather-pointed", "brand_tag": "AI STUDY", "color": "text-teal-400", "bg": "bg-teal-500/10", "border": "border-teal-500/30"},
+      {"id": "PRD-057", "name": "Turnitin - No Repository 1 Bulan Cek Plagiasi", "category": "AI Tools", "type": "Akun Student Non-Repo", "price": 12000, "rating": 4.9, "sold": 88, "icon": "fa-solid fa-feather-pointed", "brand_tag": "AI STUDY", "color": "text-teal-400", "bg": "bg-teal-500/10", "border": "border-teal-500/30"},
+      {"id": "PRD-058", "name": "Turnitin - Instruktur 1 Bulan", "category": "AI Tools", "type": "Akun Instructor Unlimited Check", "price": 45000, "rating": 4.8, "sold": 113, "icon": "fa-solid fa-feather-pointed", "brand_tag": "AI STUDY", "color": "text-teal-400", "bg": "bg-teal-500/10", "border": "border-teal-500/30"},
+      {"id": "PRD-059", "name": "Perplexity Pro - 1 Bulan Pro Akun", "category": "AI Tools", "type": "Akun Private Claude/GPT-4", "price": 25000, "rating": 4.9, "sold": 153, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-060", "name": "ElevenLabs - 1 Bulan Starter Plan Voice AI", "category": "AI Tools", "type": "Akun Sharing / Private", "price": 28000, "rating": 4.8, "sold": 164, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-061", "name": "Suno AI - 1 Bulan Pro (2500 Credits)", "category": "AI Tools", "type": "Akun AI Music Generator", "price": 35000, "rating": 4.8, "sold": 137, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-062", "name": "Luma Dream Machine / Runway - 1 Bulan Standard Access", "category": "AI Tools", "type": "Akun Video AI Generator", "price": 49000, "rating": 4.7, "sold": 106, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-063", "name": "NordVPN - 1 Bulan Private Akun", "category": "VPN & Utilitas", "type": "Akun Private Multi-Device", "price": 6900, "rating": 4.9, "sold": 68, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-064", "name": "NordVPN - 1 Tahun Shared / Private", "category": "VPN & Utilitas", "type": "Akun Premium Garansi", "price": 28000, "rating": 4.8, "sold": 119, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-065", "name": "Surfshark VPN - 1 Bulan Unlimited Device", "category": "VPN & Utilitas", "type": "Key / Login Akun", "price": 12000, "rating": 4.9, "sold": 160, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-066", "name": "Surfshark VPN - 1 Tahun Unlimited Device", "category": "VPN & Utilitas", "type": "Key Software Lisensi", "price": 45000, "rating": 4.8, "sold": 92, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-067", "name": "ExpressVPN - 1 Bulan Premium Sharing", "category": "VPN & Utilitas", "type": "Aktivasi Kode PC/Mobile", "price": 25000, "rating": 4.8, "sold": 67, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-068", "name": "ExpressVPN - 1 Tahun Premium Private", "category": "VPN & Utilitas", "type": "Kunci Lisensi Resmi", "price": 185000, "rating": 4.8, "sold": 127, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-069", "name": "CyberGhost VPN - 1 Tahun Premium", "category": "VPN & Utilitas", "type": "Akun Multi-Platform", "price": 32000, "rating": 4.7, "sold": 118, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-070", "name": "ExitLag - 1 Bulan Prepaid Code", "category": "VPN & Utilitas", "type": "Voucher Kode Redeem", "price": 68000, "rating": 4.9, "sold": 186, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-071", "name": "ExitLag - 3 Bulan Prepaid Code", "category": "VPN & Utilitas", "type": "Voucher Kode Redeem", "price": 185000, "rating": 4.9, "sold": 182, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-072", "name": "Turbo VPN - 1 Bulan VIP All Device", "category": "VPN & Utilitas", "type": "Akun VIP Login", "price": 9000, "rating": 4.8, "sold": 53, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-073", "name": "WARP+ (Cloudflare) - Unlimited Kuota 1.1.1.1", "category": "VPN & Utilitas", "type": "Key Lisensi Android/iOS/PC", "price": 4500, "rating": 4.9, "sold": 125, "icon": "fa-solid fa-shield-virus", "brand_tag": "VPN / NET", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-074", "name": "Windows 10 / 11 Pro - Retail / OEM Original Key", "category": "Software", "type": "Digital License Key Lifetime", "price": 19500, "rating": 4.9, "sold": 172, "icon": "fa-brands fa-windows", "brand_tag": "WINDOWS", "color": "text-blue-500", "bg": "bg-blue-500/10", "border": "border-blue-500/30"},
+      {"id": "PRD-075", "name": "Windows 10 / 11 Home - Retail Original Key", "category": "Software", "type": "Digital License Key Lifetime", "price": 17000, "rating": 4.9, "sold": 75, "icon": "fa-brands fa-windows", "brand_tag": "WINDOWS", "color": "text-blue-500", "bg": "bg-blue-500/10", "border": "border-blue-500/30"},
+      {"id": "PRD-076", "name": "Microsoft Office 365 - 1 Tahun 5 Device + 1TB Cloud", "category": "Software", "type": "Akun Pro Plus Resmi Custom", "price": 18000, "rating": 4.9, "sold": 107, "icon": "fa-brands fa-microsoft", "brand_tag": "OFFICE 365", "color": "text-orange-500", "bg": "bg-orange-500/10", "border": "border-orange-500/30"},
+      {"id": "PRD-077", "name": "Microsoft Office 2021 Pro Plus - Lifetime License Key (1 PC)", "category": "Software", "type": "Product Key Bind / Aktivasi", "price": 28000, "rating": 4.9, "sold": 80, "icon": "fa-brands fa-microsoft", "brand_tag": "OFFICE 365", "color": "text-orange-500", "bg": "bg-orange-500/10", "border": "border-orange-500/30"},
+      {"id": "PRD-078", "name": "Microsoft Office 2024 Pro Plus - Lifetime License Key (1 PC)", "category": "Software", "type": "Product Key Versi Terbaru", "price": 45000, "rating": 4.9, "sold": 135, "icon": "fa-brands fa-microsoft", "brand_tag": "OFFICE 365", "color": "text-orange-500", "bg": "bg-orange-500/10", "border": "border-orange-500/30"},
+      {"id": "PRD-079", "name": "Internet Download Manager (IDM) - 1 Tahun Lisensi Resmi", "category": "Software", "type": "Serial Number Original", "price": 14000, "rating": 4.9, "sold": 64, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-080", "name": "Internet Download Manager (IDM) - Lifetime Lisensi Resmi", "category": "Software", "type": "Serial Number Original 1 PC", "price": 28000, "rating": 4.9, "sold": 115, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-081", "name": "Revo Uninstaller Pro - Lifetime License 1 PC", "category": "Software", "type": "Key Aktivasi Software", "price": 22000, "rating": 4.8, "sold": 96, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-082", "name": "AIDA64 Extreme - Lifetime License", "category": "Software", "type": "Product Key Resmi", "price": 18000, "rating": 4.9, "sold": 50, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-083", "name": "Unlock Tool (GSM/Flash) - Sewa 3 Jam / 6 Jam", "category": "Software", "type": "Sewa Akun Tool Teknisi", "price": 15000, "rating": 4.9, "sold": 94, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-084", "name": "Unlock Tool (GSM/Flash) - Aktivasi 3 Bulan / 12 Bulan", "category": "Software", "type": "Lisensi Aktivasi Akun Sendiri", "price": 295000, "rating": 4.9, "sold": 126, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-085", "name": "Kaspersky Total Security / Plus - 1 Tahun 1 PC License", "category": "Software", "type": "Digital License Key", "price": 29000, "rating": 4.9, "sold": 172, "icon": "fa-solid fa-shield-halved", "brand_tag": "SECURITY", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-086", "name": "Kaspersky Total Security / Plus - 1 Tahun 3 PC / 5 PC", "category": "Software", "type": "Digital License Key", "price": 58000, "rating": 4.9, "sold": 159, "icon": "fa-solid fa-shield-halved", "brand_tag": "SECURITY", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-087", "name": "Bitdefender Total Security - 1 Tahun 5 Device", "category": "Software", "type": "Redeem Central Account Key", "price": 32000, "rating": 4.9, "sold": 59, "icon": "fa-solid fa-shield-halved", "brand_tag": "SECURITY", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-088", "name": "Norton 360 Deluxe - 1 Tahun 3-5 Device", "category": "Software", "type": "License Key Global", "price": 27000, "rating": 4.8, "sold": 156, "icon": "fa-solid fa-shield-halved", "brand_tag": "SECURITY", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-089", "name": "McAfee Total Protection - 1 Tahun 1 Device Key", "category": "Software", "type": "Digital Activation Key", "price": 15000, "rating": 4.8, "sold": 161, "icon": "fa-solid fa-shield-halved", "brand_tag": "SECURITY", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-090", "name": "ESET Internet Security - 1 Tahun 1 PC", "category": "Software", "type": "Serial Activation Key", "price": 25000, "rating": 4.8, "sold": 162, "icon": "fa-solid fa-shield-halved", "brand_tag": "SECURITY", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-091", "name": "Malwarebytes Premium - 1 Tahun 1 PC", "category": "Software", "type": "Digital License Key", "price": 24000, "rating": 4.8, "sold": 65, "icon": "fa-solid fa-shield-halved", "brand_tag": "SECURITY", "color": "text-emerald-400", "bg": "bg-emerald-500/10", "border": "border-emerald-500/30"},
+      {"id": "PRD-092", "name": "Scribd - 1 Bulan Premium Private", "category": "Software", "type": "Akun Private Email", "price": 8000, "rating": 4.9, "sold": 42, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-093", "name": "Scribd - 1 Tahun Premium Private", "category": "Software", "type": "Akun Private Email", "price": 32000, "rating": 4.9, "sold": 107, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-094", "name": "Chegg Study - 1 Bulan Homework Help", "category": "Software", "type": "Sewa / Akun Sharing", "price": 28000, "rating": 4.7, "sold": 175, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-095", "name": "Google One / Drive - 100 GB / 2 TB (1 Tahun)", "category": "Software", "type": "Invite Family Pribadi", "price": 35000, "rating": 4.8, "sold": 62, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-096", "name": "Zoom Cloud Meetings - Sewa Meeting Room 1 Hari 100/300 Peserta", "category": "Software", "type": "Host Room Tanpa Batas Waktu", "price": 9000, "rating": 4.9, "sold": 43, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-097", "name": "Duolingo Super - 1 Tahun Super Family Plan", "category": "Software", "type": "Invite Member Email", "price": 19000, "rating": 4.9, "sold": 63, "icon": "fa-solid fa-layer-group", "brand_tag": "DIGITAL APP", "color": "text-yellow-400", "bg": "bg-yellow-500/10", "border": "border-yellow-500/30"},
+      {"id": "PRD-098", "name": "Discord Nitro - 1 Bulan Nitro Boost (Link Claim)", "category": "Hiburan", "type": "Redeem Gift Promo", "price": 18500, "rating": 4.9, "sold": 38, "icon": "fa-brands fa-discord", "brand_tag": "DISCORD", "color": "text-indigo-400", "bg": "bg-indigo-500/10", "border": "border-indigo-500/30"},
+      {"id": "PRD-099", "name": "Discord Nitro - 1 Tahun Nitro Boost", "category": "Hiburan", "type": "Aktivasi Gift Global", "price": 195000, "rating": 4.8, "sold": 114, "icon": "fa-brands fa-discord", "brand_tag": "DISCORD", "color": "text-indigo-400", "bg": "bg-indigo-500/10", "border": "border-indigo-500/30"},
+      {"id": "PRD-100", "name": "Telegram Premium - 3 Bulan Subscription", "category": "Hiburan", "type": "Gift Langganan Username", "price": 98000, "rating": 4.9, "sold": 135, "icon": "fa-brands fa-telegram", "brand_tag": "TELEGRAM", "color": "text-sky-400", "bg": "bg-sky-500/10", "border": "border-sky-500/30"},
+      {"id": "PRD-101", "name": "Tinder Plus / Gold - Voucher Kode Promo 1 Bulan", "category": "Hiburan", "type": "Digital Voucher Code", "price": 39000, "rating": 4.8, "sold": 190, "icon": "fa-solid fa-fire", "brand_tag": "DATING APP", "color": "text-rose-500", "bg": "bg-rose-500/10", "border": "border-rose-500/30"},
+      {"id": "PRD-102", "name": "Bumble Boost / Premium - Voucher / Top Up Koin", "category": "Hiburan", "type": "Direct Top Up / Gift", "price": 45000, "rating": 4.8, "sold": 132, "icon": "fa-solid fa-fire", "brand_tag": "DATING APP", "color": "text-rose-500", "bg": "bg-rose-500/10", "border": "border-rose-500/30"},
+      {"id": "PRD-103", "name": "Tantan VIP - 1 Bulan VIP Subscription", "category": "Hiburan", "type": "Direct Top Up ID", "price": 24000, "rating": 4.8, "sold": 121, "icon": "fa-solid fa-fire", "brand_tag": "DATING APP", "color": "text-rose-500", "bg": "bg-rose-500/10", "border": "border-rose-500/30"}
+    ];
+
+    function loadProducts() {
+      // Hapus data lama yang berpotensi corrupt di local storage
+      localStorage.removeItem("vanskiess_apps_data_v3");
+      localStorage.removeItem("panel_products_data");
+      
+      const stored = localStorage.getItem("vanskiess_clean_v5");
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          localStorage.removeItem("vanskiess_clean_v5");
+        }
+      }
+      localStorage.setItem("vanskiess_clean_v5", JSON.stringify(defaultProducts));
+      return defaultProducts;
+    }
+
+    function saveProducts(data) {
+      localStorage.setItem("vanskiess_clean_v5", JSON.stringify(data));
+    }
+
+    let selectedCategory = "all";
+    let activeItem = null;
+
+    function setCategory(cat) {
+      selectedCategory = cat;
+      document.querySelectorAll(".cat-btn").forEach(b => {
+        b.className = "cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-slate-900 text-slate-300 hover:text-yellow-400 hover:bg-slate-800 transition whitespace-nowrap";
+      });
+      
+      const safeId = "btn-" + cat.toLowerCase().replace(/\s+/g, '-').replace(/&/g, '-');
+      const activeBtn = document.getElementById(safeId) || document.getElementById("btn-all");
+      if (activeBtn) {
+        activeBtn.className = "cat-btn px-4 py-2.5 text-xs font-bold rounded-xl bg-yellow-400 text-black transition whitespace-nowrap shadow-md";
+      }
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const container = document.getElementById("productContainer");
+      const sortMode = document.getElementById("sortOrder").value;
+      const searchKeyword = (document.getElementById("searchInput") ? document.getElementById("searchInput").value : "").toLowerCase().trim();
+      let items = loadProducts();
+
+      if (selectedCategory !== "all") {
+        items = items.filter(x => x.category === selectedCategory);
+      }
+
+      if (searchKeyword !== "") {
+        items = items.filter(x => 
+          x.name.toLowerCase().includes(searchKeyword) || 
+          x.category.toLowerCase().includes(searchKeyword) ||
+          (x.type && x.type.toLowerCase().includes(searchKeyword)) ||
+          (x.brand_tag && x.brand_tag.toLowerCase().includes(searchKeyword))
+        );
+      }
+
+      items.sort((a, b) => {
+        if (sortMode === "popular") return b.sold - a.sold;
+        if (sortMode === "price_asc") return a.price - b.price;
+        if (sortMode === "price_desc") return b.price - a.price;
+        if (sortMode === "asc") return a.name.localeCompare(b.name);
+        if (sortMode === "desc") return b.name.localeCompare(a.name);
+        return 0;
+      });
+
+      const countEl = document.getElementById("resultCount");
+      if (countEl) {
+        countEl.innerText = `Menampilkan ${items.length} produk & paket siap order`;
+      }
+
+      container.innerHTML = "";
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-500 bg-brand-card rounded-3xl border border-brand-border">
+            <i class="fa-solid fa-box-open text-5xl mb-3 text-yellow-400/40"></i>
+            <h3 class="text-base font-bold text-white mb-1">Produk Tidak Ditemukan</h3>
+            <p class="text-xs">Coba cari dengan kata kunci lain atau ubah kategori pilihan Anda.</p>
+          </div>
+        `;
+        return;
+      }
+
+      items.forEach(prod => {
+        const card = document.createElement("div");
+        card.className = "bg-brand-card border border-brand-border hover:border-yellow-400/60 rounded-3xl p-5 flex flex-col justify-between card-3d relative group";
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-start mb-3.5">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl ${prod.bg || 'bg-yellow-400/10'} border ${prod.border || 'border-yellow-400/30'} flex items-center justify-center ${prod.color || 'text-yellow-400'} text-xl shadow-md">
+                  <i class="${prod.icon || 'fa-solid fa-cube'}"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-black uppercase tracking-wider ${prod.color || 'text-yellow-400'}">${prod.brand_tag || 'OFFICIAL'}</span>
+                  <div class="text-[10px] text-slate-400 font-medium">${prod.category}</div>
+                </div>
+              </div>
+              <div class="flex flex-col items-end">
+                <span class="flex items-center text-yellow-400 font-extrabold text-xs">
+                  <i class="fa-solid fa-star text-[11px] mr-1"></i>${prod.rating ? prod.rating.toFixed(1) : '5.0'}
+                </span>
+                <span class="text-[10px] text-slate-400 font-semibold bg-black/50 px-2 py-0.5 rounded-full border border-slate-800 mt-1">
+                  ${prod.sold.toLocaleString("id-ID")} terjual
+                </span>
+              </div>
+            </div>
+            <h2 class="text-base font-bold text-white mb-1 group-hover:text-yellow-300 transition leading-snug">${prod.name}</h2>
+            <div class="text-xs text-slate-400 mb-3 flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-check text-yellow-400 text-xs"></i>
+              <span class="truncate">${prod.type || 'Akun Legal & Bergaransi'}</span>
+            </div>
+            <div class="mb-4">
+              <span class="text-[10px] text-slate-500 uppercase tracking-wider block font-semibold">Harga Termurah:</span>
+              <div class="text-2xl font-heading font-black text-yellow-400 tracking-tight">Rp ${prod.price.toLocaleString("id-ID")}</div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-brand-border/80 flex items-center justify-between gap-2">
+            <span class="text-[11px] text-emerald-400 font-bold flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Stok Ready
+            </span>
+            <button onclick="openCheckout('${prod.id}')" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-black text-xs font-black rounded-xl transition shadow-lg shadow-yellow-500/20 active:scale-95">
+              Order Sekarang
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function openCheckout(id) {
+      const items = loadProducts();
+      activeItem = items.find(x => x.id === id);
+      if (!activeItem) return;
+
+      document.getElementById("modalName").innerText = activeItem.name;
+      document.getElementById("modalAccountType").innerText = activeItem.type ? "Tipe: " + activeItem.type : "Layanan Digital";
+      document.getElementById("modalUnitPrice").innerText = "Rp " + activeItem.price.toLocaleString("id-ID");
+      document.getElementById("modalStatStatus").innerText = `★ ${activeItem.rating || 5.0} (${activeItem.sold} Terjual)`;
+      document.getElementById("modalReviewSummary").innerText = "Ulasan Terverifikasi";
+
+      document.getElementById("inputQty").value = 1;
+      document.getElementById("inputNote").value = "";
+      calculateTotal();
+
+      const reviewBox = document.getElementById("modalReviewList");
+      reviewBox.innerHTML = `
+        <div class="bg-black/60 p-2.5 rounded-xl border border-brand-border text-xs space-y-1">
+          <div class="flex justify-between items-center">
+            <span class="font-bold text-slate-200">Pembeli Terverifikasi</span>
+            <span class="text-[10px] text-slate-500">Hari ini</span>
+          </div>
+          <p class="text-slate-400 text-[11px]">Akun langsung aktif dan bergaransi penuh.</p>
+        </div>
+      `;
+
+      document.getElementById("checkoutModal").classList.remove("hidden");
+      document.getElementById("checkoutModal").classList.add("flex");
+    }
+
+    function calculateTotal() {
+      if (!activeItem) return;
+      const qty = parseInt(document.getElementById("inputQty").value) || 0;
+      const total = qty * activeItem.price;
+      document.getElementById("modalTotalPrice").innerText = "Rp " + total.toLocaleString("id-ID");
+    }
+
+    function closeCheckout() {
+      document.getElementById("checkoutModal").classList.add("hidden");
+      document.getElementById("checkoutModal").classList.remove("flex");
+      activeItem = null;
+    }
+
+    function executeCheckout() {
+      const qty = parseInt(document.getElementById("inputQty").value);
+      const note = document.getElementById("inputNote").value.trim();
+      const paymentMethod = document.getElementById("inputPayment").value;
+
+      if (!qty || qty < 1) {
+        alert("Jumlah pemesanan minimal 1 pcs.");
+        return;
+      }
+
+      let currentProducts = loadProducts();
+      const index = currentProducts.findIndex(x => x.id === activeItem.id);
+      if (index !== -1) {
+        currentProducts[index].sold += qty;
+        saveProducts(currentProducts);
+      }
+
+      const totalBayar = activeItem.price * qty;
+      const orderID = "VSK-" + Date.now().toString().slice(-6);
+
+      const waMessage = 
+`*ORDER PRODUK - PT VANSKIESS AGENCY*
+*(Vanskiess Apps Digital)*
+----------------------------------------
+*No. Invoice:* #${orderID}
+*Nama Produk:* ${activeItem.name}
+*Harga Satuan:* Rp ${activeItem.price.toLocaleString("id-ID")}
+*Jumlah Beli:* ${qty} pcs
+*Total Tagihan:* Rp ${totalBayar.toLocaleString("id-ID")}
+*Metode Bayar:* ${paymentMethod}
+*Email / Catatan:* ${note || "-"}
+----------------------------------------
+⚠️ *PERINGATAN PEMBAYARAN:*
+Semua transfer bank & e-wallet HANYA sah ke rekening a/n *${REK_NAME}*.
+
+Mohon segera konfirmasi ketersediaan & kirim nomor rekening / QRIS-nya admin. Terima kasih!`;
+
+      const waLink = `https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(waMessage)}`;
+
+      closeCheckout();
+      renderCatalog();
+      window.location.href = waLink;
+    }
+
+    // Jalankan saat halaman dibuka
+    renderCatalog();
+  </script>
+</body>
+</html>
