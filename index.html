@@ -75,7 +75,6 @@
   <!-- HEADER DENGAN TOMBOL SIDEBAR DI KIRI ATAS & CHAT ADMIN 1 DI KANAN (TANPA NOMOR) -->
   <header class="bg-[#090D16]/95 backdrop-blur border-b border-brand-border px-4 py-2.5 flex justify-between items-center z-30 sticky top-0">
     <div class="flex items-center gap-3">
-      <!-- TOMBOL PEMBUKA SIDEBAR (DI ATAS SEBELAH KIRI) -->
       <button onclick="toggleMobileSidebar()" class="lg:hidden w-9 h-9 bg-brand-card hover:bg-slate-800 border border-brand-border rounded-xl flex items-center justify-center text-yellow-400 text-base shadow transition">
         <i class="fa-solid fa-bars-staggered"></i>
       </button>
@@ -114,7 +113,7 @@
         </button>
       </div>
 
-      <!-- Navigation Tabs (Format Bersih Tanpa Nomor) -->
+      <!-- Navigation Tabs -->
       <nav class="flex-1 overflow-y-auto p-3 space-y-1.5 text-xs font-semibold">
         <button onclick="switchTab('tab-products')" id="nav-tab-products" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition text-left bg-yellow-400 text-black font-bold shadow-md shadow-yellow-500/10">
           <i class="fa-solid fa-layer-group w-4 text-center"></i>
@@ -156,25 +155,21 @@
           <i class="fa-solid fa-headset text-yellow-400 text-xs"></i> Kontak Resmi Layanan:
         </div>
         <div class="space-y-1.5">
-          <!-- WhatsApp Admin 1 -->
           <a href="https://wa.me/6285178422563" target="_blank" class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-brand-border hover:border-yellow-400/50 hover:bg-slate-800/60 transition group">
             <span class="text-slate-300 group-hover:text-yellow-400 font-medium">WhatsApp Admin 1 :</span>
             <strong class="text-yellow-400 font-bold">0851-7842-2563</strong>
           </a>
 
-          <!-- WhatsApp Admin 2 -->
           <a href="https://wa.me/628996820898" target="_blank" class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-brand-border hover:border-yellow-400/50 hover:bg-slate-800/60 transition group">
             <span class="text-slate-300 group-hover:text-yellow-400 font-medium">WhatsApp Admin 2 :</span>
             <strong class="text-white group-hover:text-yellow-400 font-bold">0899-6820-898</strong>
           </a>
 
-          <!-- WhatsApp Admin 3 -->
           <a href="https://wa.me/6288290952285" target="_blank" class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-brand-border hover:border-yellow-400/50 hover:bg-slate-800/60 transition group">
             <span class="text-slate-300 group-hover:text-yellow-400 font-medium">WhatsApp Admin 3 :</span>
             <strong class="text-white group-hover:text-yellow-400 font-bold">0882-9095-2285</strong>
           </a>
 
-          <!-- EMAIL RESMI TOKO -->
           <a href="mailto:Admin@vanskiess.my.id" class="flex items-center justify-between p-2 rounded-lg bg-yellow-400/10 border border-yellow-400/30 hover:bg-yellow-400/20 transition group">
             <span class="text-slate-300 group-hover:text-yellow-400 font-medium flex items-center gap-1.5">
               <i class="fa-solid fa-envelope text-yellow-400"></i> Email Resmi :
@@ -283,7 +278,7 @@
           </div>
         </div>
 
-        <!-- GRID 103 PRODUK -->
+        <!-- GRID 103 PRODUK DENGAN DUAL-LAYER IMAGE + ICON FALLBACK -->
         <div id="productGridContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           <!-- Rendered by JS -->
         </div>
@@ -294,7 +289,7 @@
         </div>
       </section>
 
-      <!-- ================= 2. TOP UP GAME (MAINTENANCE NOTIFICATION) ================= -->
+      <!-- ================= 2. TOP UP GAME (MAINTENANCE) ================= -->
       <section id="tab-topup" class="tab-content hidden max-w-3xl space-y-4">
         <div class="bg-brand-card border border-brand-border p-8 rounded-2xl text-center space-y-4 glow-yellow-sm">
           <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-yellow-400 mx-auto flex items-center justify-center text-2xl border border-yellow-400/30">
@@ -316,7 +311,7 @@
         </div>
       </section>
 
-      <!-- ================= 3. JASA SOSIAL MEDIA (MAINTENANCE NOTIFICATION) ================= -->
+      <!-- ================= 3. JASA SOSIAL MEDIA (MAINTENANCE) ================= -->
       <section id="tab-sosmed" class="tab-content hidden max-w-3xl space-y-4">
         <div class="bg-brand-card border border-brand-border p-8 rounded-2xl text-center space-y-4 glow-yellow-sm">
           <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-yellow-400 mx-auto flex items-center justify-center text-2xl border border-yellow-400/30">
@@ -338,7 +333,7 @@
         </div>
       </section>
 
-      <!-- ================= 4. JASA WEB UMKM (MAINTENANCE NOTIFICATION) ================= -->
+      <!-- ================= 4. JASA WEB UMKM (MAINTENANCE) ================= -->
       <section id="tab-web" class="tab-content hidden max-w-3xl space-y-4">
         <div class="bg-brand-card border border-brand-border p-8 rounded-2xl text-center space-y-4 glow-yellow-sm">
           <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-yellow-400 mx-auto flex items-center justify-center text-2xl border border-yellow-400/30">
@@ -379,13 +374,11 @@
       <!-- ================= 6. PROFIL TOKO & HAK CIPTA ================= -->
       <section id="tab-profile" class="tab-content hidden max-w-4xl space-y-6">
         
-        <!-- HEADER UTAMA BIO -->
         <div class="border-b border-brand-border pb-4">
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-tech">VANSKIESS APPS DIGITAL</h1>
           <p class="text-yellow-400 text-sm font-semibold mt-1 font-tech">Agen Pusat Layanan Digital Terpercaya di Indonesia</p>
         </div>
 
-        <!-- DESKRIPSI PEMBUKA -->
         <div class="bg-brand-card border border-brand-border rounded-2xl p-5 sm:p-6 text-xs sm:text-sm leading-relaxed text-slate-300 space-y-3 glow-yellow-sm">
           <p>
             <strong>Vanskiess Apps Digital</strong> adalah toko dan platform layanan digital yang berdiri sejak <strong>2025</strong>, didirikan dan dikelola oleh <strong>Bpk. Adi Irfansyah</strong>, dengan latar belakang pendidikan <strong>Manajemen Bisnis dan Informatika</strong>.
@@ -395,7 +388,6 @@
           </p>
         </div>
 
-        <!-- MENGAPA VANSKIESS -->
         <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-3 text-xs sm:text-sm text-slate-300">
           <h2 class="text-base font-bold text-yellow-400 flex items-center gap-2 font-tech">
             🏆 MENGAPA VANSKIESS APPS DIGITAL?
@@ -406,7 +398,6 @@
           </p>
         </div>
 
-        <!-- FITUR KEUNGGULAN (GRID KARTU) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
           
           <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
@@ -483,7 +474,6 @@
 
         </div>
 
-        <!-- LIST STANDAR PELAYANAN -->
         <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-3">
           <p class="text-xs font-bold text-yellow-400 uppercase tracking-wider font-tech">Standar Pelayanan Kami:</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 text-xs font-semibold text-slate-200">
@@ -499,7 +489,6 @@
           </div>
         </div>
 
-        <!-- VISI & MISI -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
           <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
             <h2 class="text-sm font-bold text-yellow-400 flex items-center gap-2 font-tech">🏅 VISI</h2>
@@ -515,7 +504,6 @@
           </div>
         </div>
 
-        <!-- RINGKASAN BRAND FOOTER -->
         <div class="p-5 bg-slate-900/90 border border-brand-border rounded-2xl text-center space-y-1.5 glow-yellow-sm">
           <h2 class="font-extrabold text-white text-base font-tech tracking-wider">VANSKIESS APPS DIGITAL</h2>
           <h3 class="text-xs text-yellow-400 font-bold tracking-widest font-tech uppercase">Trusted Digital Service</h3>
@@ -526,7 +514,6 @@
           </p>
         </div>
 
-        <!-- HAK CIPTA & PERLINDUNGAN KONTEN -->
         <div class="bg-brand-card/90 border border-brand-border rounded-2xl p-5 sm:p-6 text-xs text-slate-300 space-y-3">
           <h2 class="text-sm font-bold text-white flex items-center gap-2 font-tech">
             <i class="fa-regular fa-copyright text-yellow-400"></i> HAK CIPTA & PERLINDUNGAN KONTEN
@@ -591,7 +578,6 @@
           </button>
         </div>
 
-        <!-- FORM INPUT ULASAN -->
         <div id="reviewFormContainer" class="hidden bg-brand-card border border-brand-border rounded-2xl p-4 space-y-3 text-xs">
           <div class="font-bold text-white font-tech text-sm">Beri Ulasan Pengalaman Order Anda:</div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -609,7 +595,6 @@
           </div>
         </div>
 
-        <!-- STATISTIK RATING -->
         <div class="bg-brand-card border border-brand-border p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 glow-yellow-sm">
           <div>
             <div class="text-3xl font-black text-yellow-400 font-tech">4.9 / 5.0</div>
@@ -623,7 +608,6 @@
           </span>
         </div>
 
-        <!-- LIST ULASAN -->
         <div id="reviewsListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
           <!-- Rendered by JS -->
         </div>
@@ -648,7 +632,10 @@
 
       <div class="p-5 overflow-y-auto space-y-4 text-xs">
         <div class="p-3 bg-slate-900/90 rounded-xl border border-brand-border flex items-center gap-3">
-          <img id="modalProductImg" src="" alt="logo" class="w-10 h-10 object-contain rounded-lg p-1 bg-white/10 shrink-0">
+          <div id="modalProductIconWrapper" class="w-10 h-10 rounded-lg flex items-center justify-center bg-white/10 shrink-0 overflow-hidden border border-brand-border">
+            <img id="modalProductImg" src="" alt="logo" class="max-h-8 max-w-[80%] object-contain">
+            <i id="modalProductIcon" class="text-base hidden"></i>
+          </div>
           <div class="flex-1 min-w-0">
             <span id="modalProductCat" class="text-[10px] font-bold text-yellow-400 font-tech uppercase"></span>
             <div id="modalProductName" class="font-bold text-white text-sm truncate"></div>
@@ -746,6 +733,28 @@
       requestAnimationFrame(animate3D);
     }
     animate3D();
+
+    // HELPER PENENTU IKON & WARNA BRAND (ANTI-PECAH JIKA GAMBAR ERROR)
+    function getProductIconMeta(name) {
+      const n = name.toLowerCase();
+      if (n.includes("netflix")) return { icon: "fa-solid fa-film", color: "text-red-500 bg-red-500/10 border-red-500/30" };
+      if (n.includes("spotify")) return { icon: "fa-brands fa-spotify", color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30" };
+      if (n.includes("youtube")) return { icon: "fa-brands fa-youtube", color: "text-red-500 bg-red-500/10 border-red-500/30" };
+      if (n.includes("disney")) return { icon: "fa-solid fa-play", color: "text-blue-400 bg-blue-500/10 border-blue-500/30" };
+      if (n.includes("prime") || n.includes("amazon")) return { icon: "fa-brands fa-amazon", color: "text-sky-400 bg-sky-500/10 border-sky-500/30" };
+      if (n.includes("canva")) return { icon: "fa-solid fa-palette", color: "text-cyan-400 bg-cyan-500/10 border-cyan-500/30" };
+      if (n.includes("capcut")) return { icon: "fa-solid fa-scissors", color: "text-slate-200 bg-slate-500/10 border-slate-500/30" };
+      if (n.includes("adobe") || n.includes("photoshop") || n.includes("premiere")) return { icon: "fa-solid fa-wand-magic-sparkles", color: "text-rose-500 bg-rose-500/10 border-rose-500/30" };
+      if (n.includes("chatgpt") || n.includes("claude") || n.includes("perplexity") || n.includes("midjourney") || n.includes("notion") || n.includes("ai")) return { icon: "fa-solid fa-brain", color: "text-teal-400 bg-teal-500/10 border-teal-500/30" };
+      if (n.includes("windows")) return { icon: "fa-brands fa-windows", color: "text-blue-400 bg-blue-500/10 border-blue-500/30" };
+      if (n.includes("office") || n.includes("365") || n.includes("word") || n.includes("excel")) return { icon: "fa-solid fa-file-lines", color: "text-amber-400 bg-amber-500/10 border-amber-500/30" };
+      if (n.includes("vpn") || n.includes("nord") || n.includes("express") || n.includes("kaspersky") || n.includes("adguard") || n.includes("security") || n.includes("bitdefender") || n.includes("surfshark") || n.includes("cyberghost") || n.includes("proton")) return { icon: "fa-solid fa-shield-halved", color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30" };
+      if (n.includes("duolingo") || n.includes("coursera") || n.includes("skillshare") || n.includes("turnitin") || n.includes("grammarly") || n.includes("quillbot")) return { icon: "fa-solid fa-graduation-cap", color: "text-green-400 bg-green-500/10 border-green-500/30" };
+      if (n.includes("google") || n.includes("cloud") || n.includes("icloud") || n.includes("mega")) return { icon: "fa-solid fa-cloud", color: "text-sky-400 bg-sky-500/10 border-sky-500/30" };
+      if (n.includes("vidio") || n.includes("viu") || n.includes("wetv") || n.includes("bstation") || n.includes("iqiyi") || n.includes("hbo")) return { icon: "fa-solid fa-tv", color: "text-purple-400 bg-purple-500/10 border-purple-500/30" };
+      if (n.includes("apple") || n.includes("tidal") || n.includes("music") || n.includes("soundcloud")) return { icon: "fa-solid fa-music", color: "text-rose-400 bg-rose-500/10 border-rose-500/30" };
+      return { icon: "fa-solid fa-cube", color: "text-yellow-400 bg-yellow-500/10 border-yellow-500/30" };
+    }
 
     // DATABASE 103 PRODUK LENGKAP
     const rawCatalogData = [
@@ -925,6 +934,8 @@
       noFound.classList.add('hidden');
       grid.innerHTML = filtered.map(item => {
         const formattedPrice = `Rp ${item.price.toLocaleString('id-ID')}`;
+        const meta = getProductIconMeta(item.name);
+
         return `
           <div class="bg-brand-card border border-brand-border rounded-2xl p-4 flex flex-col justify-between hover:border-yellow-400/60 hover:-translate-y-1 transition duration-200 group">
             <div>
@@ -937,8 +948,12 @@
                 </span>
               </div>
 
-              <div class="w-full h-24 rounded-xl bg-slate-900/90 border border-brand-border flex items-center justify-center p-3 mb-3 group-hover:scale-105 transition">
-                <img src="${item.img}" alt="${item.name}" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'" class="max-h-14 max-w-[80%] object-contain filter drop-shadow">
+              <!-- DUAL-LAYER VISUAL ANTI-PECAH -->
+              <div class="w-full h-24 rounded-xl ${meta.color} border flex items-center justify-center p-3 mb-3 group-hover:scale-105 transition overflow-hidden">
+                <img src="${item.img}" alt="${item.name}" 
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" 
+                     class="max-h-14 max-w-[80%] object-contain filter drop-shadow">
+                <i class="${meta.icon} text-3xl hidden drop-shadow"></i>
               </div>
 
               <h3 class="font-bold text-white text-sm line-clamp-1 group-hover:text-yellow-400 transition">${item.name}</h3>
@@ -985,7 +1000,18 @@
       document.getElementById('modalProductName').innerText = p.name;
       document.getElementById('modalProductDur').innerText = p.dur;
       document.getElementById('modalProductPrice').innerText = `Rp ${p.price.toLocaleString('id-ID')}`;
-      document.getElementById('modalProductImg').src = p.img;
+
+      const meta = getProductIconMeta(p.name);
+      const imgEl = document.getElementById('modalProductImg');
+      const iconEl = document.getElementById('modalProductIcon');
+
+      imgEl.style.display = 'block';
+      iconEl.style.display = 'none';
+      imgEl.src = p.img;
+      imgEl.onerror = function() {
+        this.style.display = 'none';
+        iconEl.className = `${meta.icon} text-lg text-yellow-400 block`;
+      };
 
       document.getElementById('orderModal').classList.remove('hidden');
     }
