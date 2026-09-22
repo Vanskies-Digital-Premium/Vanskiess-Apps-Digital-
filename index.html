@@ -6,6 +6,9 @@
   <title>Vanskiess Apps Digital - Platform Layanan Digital</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -14,15 +17,16 @@
           colors: {
             brand: {
               yellow: '#FACC15',
-              dark: '#0B0F19',
-              sidebar: '#111827',
-              content: '#0F172A',
-              card: '#1E293B',
-              border: '#334155'
+              dark: '#07090E',
+              sidebar: '#0D111A',
+              content: '#0A0E17',
+              card: '#131926',
+              border: '#232D42'
             }
           },
           fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            tech: ['"Space Grotesk"', 'sans-serif']
           }
         }
       }
@@ -30,16 +34,27 @@
   </script>
 
   <style>
-    /* Reset scrollbar */
+    /* Background Animasi Cyber Grid & Efek 3D */
+    .bg-cyber-grid {
+      background-image: 
+        linear-gradient(to right, rgba(250, 204, 21, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(250, 204, 21, 0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    
+    .glow-yellow-sm {
+      box-shadow: 0 0 15px rgba(250, 204, 21, 0.15);
+    }
+
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #0B0F19;
+      background: #07090E;
     }
     ::-webkit-scrollbar-thumb {
-      background: #334155;
+      background: #232D42;
       border-radius: 3px;
     }
     ::-webkit-scrollbar-thumb:hover {
@@ -47,47 +62,50 @@
     }
   </style>
 </head>
-<body class="bg-brand-dark text-slate-200 min-h-screen flex flex-col font-sans selection:bg-yellow-400 selection:text-black">
+<body class="bg-brand-dark text-slate-200 min-h-screen flex flex-col font-sans selection:bg-yellow-400 selection:text-black relative overflow-x-hidden">
+
+  <!-- CANVAS 3D PARTICLES FLOATING BACKGROUND -->
+  <canvas id="bg3dCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
 
   <!-- TOP HEADER / CS QUICK CONTACT -->
-  <header class="bg-[#090D16] border-b border-brand-border px-4 py-2 text-xs flex flex-wrap justify-between items-center z-30">
+  <header class="bg-[#090D16]/90 backdrop-blur border-b border-brand-border px-4 py-2 text-xs flex flex-wrap justify-between items-center z-30 relative">
     <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-      <span class="font-semibold text-slate-300">Vanskiess Apps Digital — Customer Care Center</span>
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+      <span class="font-semibold text-slate-300 font-tech tracking-wide">VANSKIESS DIGITAL • SYSTEM READY</span>
     </div>
     <div class="flex items-center gap-4 text-[11px] font-medium text-slate-400 mt-1 sm:mt-0">
-      <a href="https://wa.me/6285178422563" target="_blank" class="hover:text-yellow-400 transition flex items-center gap-1">
+      <a href="https://wa.me/6285178422563" target="_blank" class="hover:text-yellow-400 transition flex items-center gap-1 font-tech">
         <i class="fa-brands fa-whatsapp text-emerald-400"></i> Admin 1 (Order): <strong class="text-white">0851-7842-2563</strong>
       </a>
       <span class="hidden md:inline text-slate-700">|</span>
-      <a href="https://wa.me/628996820898" target="_blank" class="hidden md:flex hover:text-yellow-400 transition items-center gap-1">
+      <a href="https://wa.me/628996820898" target="_blank" class="hidden md:flex hover:text-yellow-400 transition items-center gap-1 font-tech">
         <i class="fa-brands fa-whatsapp text-emerald-400"></i> Admin 2: <strong class="text-white">0899-6820-898</strong>
       </a>
       <span class="hidden lg:inline text-slate-700">|</span>
-      <a href="https://wa.me/628290952285" target="_blank" class="hidden lg:flex hover:text-yellow-400 transition items-center gap-1">
+      <a href="https://wa.me/628290952285" target="_blank" class="hidden lg:flex hover:text-yellow-400 transition items-center gap-1 font-tech">
         <i class="fa-brands fa-whatsapp text-emerald-400"></i> Admin 3: <strong class="text-white">082-9095-2285</strong>
       </a>
     </div>
   </header>
 
   <!-- MAIN APP CONTAINER (SIDEBAR KIRI + CONTENT KANAN) -->
-  <div class="flex flex-1 overflow-hidden relative">
+  <div class="flex flex-1 overflow-hidden relative z-10">
 
     <!-- MOBILE MENU TOGGLE -->
     <div class="lg:hidden absolute bottom-4 right-4 z-50">
-      <button onclick="toggleMobileSidebar()" class="w-12 h-12 bg-yellow-400 text-black rounded-full flex items-center justify-center shadow-lg font-bold">
+      <button onclick="toggleMobileSidebar()" class="w-12 h-12 bg-yellow-400 text-black rounded-full flex items-center justify-center shadow-lg font-bold border border-yellow-300">
         <i class="fa-solid fa-bars text-lg"></i>
       </button>
     </div>
 
     <!-- SIDEBAR KIRI -->
-    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out w-72 bg-brand-sidebar border-r border-brand-border flex flex-col z-40">
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out w-72 bg-brand-sidebar/95 backdrop-blur border-r border-brand-border flex flex-col z-40">
       <div class="p-5 border-b border-brand-border flex items-center justify-between">
         <div>
-          <h1 class="text-base font-bold text-white tracking-wide flex items-center gap-2">
-            <span class="text-yellow-400 text-lg">⚡</span> VANSKIESS
+          <h1 class="text-lg font-extrabold text-white tracking-wider flex items-center gap-2 font-tech">
+            <span class="text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)]">⚡</span> VANSKIESS
           </h1>
-          <p class="text-[11px] text-slate-400">Digital Service Platform</p>
+          <p class="text-[11px] text-slate-400 font-medium">Digital Service Platform</p>
         </div>
         <button onclick="toggleMobileSidebar()" class="lg:hidden text-slate-400 hover:text-white">
           <i class="fa-solid fa-xmark text-lg"></i>
@@ -95,36 +113,36 @@
       </div>
 
       <!-- Navigation Tabs -->
-      <nav class="flex-1 overflow-y-auto p-3 space-y-1.5 text-xs font-medium">
-        <button onclick="switchTab('tab-profile')" id="nav-tab-profile" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800">
+      <nav class="flex-1 overflow-y-auto p-3 space-y-1.5 text-xs font-semibold">
+        <button onclick="switchTab('tab-profile')" id="nav-tab-profile" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800/80">
           <i class="fa-solid fa-id-card w-4 text-center text-slate-400"></i>
           <span>1. Profil Toko</span>
         </button>
-        <button onclick="switchTab('tab-products')" id="nav-tab-products" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left bg-yellow-400 text-black font-semibold shadow-sm">
+        <button onclick="switchTab('tab-products')" id="nav-tab-products" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left bg-yellow-400 text-black font-bold shadow-md shadow-yellow-500/10">
           <i class="fa-solid fa-cube w-4 text-center"></i>
           <span>2. Aplikasi & Software</span>
         </button>
-        <button onclick="switchTab('tab-topup')" id="nav-tab-topup" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800">
+        <button onclick="switchTab('tab-topup')" id="nav-tab-topup" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800/80">
           <i class="fa-solid fa-gamepad w-4 text-center text-slate-400"></i>
           <span>3. Top Up Game, Pulsa & Digital</span>
         </button>
-        <button onclick="switchTab('tab-sosmed')" id="nav-tab-sosmed" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800">
+        <button onclick="switchTab('tab-sosmed')" id="nav-tab-sosmed" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800/80">
           <i class="fa-solid fa-thumbs-up w-4 text-center text-slate-400"></i>
           <span>4. Jasa Sosial Media Service</span>
         </button>
-        <button onclick="switchTab('tab-web')" id="nav-tab-web" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800">
+        <button onclick="switchTab('tab-web')" id="nav-tab-web" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800/80">
           <i class="fa-solid fa-globe w-4 text-center text-slate-400"></i>
           <span>5. Jasa Web UMKM Custom Domain</span>
         </button>
-        <button onclick="switchTab('tab-editing')" id="nav-tab-editing" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800">
+        <button onclick="switchTab('tab-editing')" id="nav-tab-editing" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800/80">
           <i class="fa-solid fa-pen-nib w-4 text-center text-slate-400"></i>
           <span>6. Jasa Editing Video / Desain</span>
         </button>
-        <button onclick="switchTab('tab-payment')" id="nav-tab-payment" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800">
+        <button onclick="switchTab('tab-payment')" id="nav-tab-payment" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800/80">
           <i class="fa-solid fa-wallet w-4 text-center text-slate-400"></i>
           <span>7. Metode Pembayaran</span>
         </button>
-        <button onclick="switchTab('tab-reviews')" id="nav-tab-reviews" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800">
+        <button onclick="switchTab('tab-reviews')" id="nav-tab-reviews" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition text-left text-slate-300 hover:bg-slate-800/80">
           <i class="fa-solid fa-star w-4 text-center text-slate-400"></i>
           <span>8. Rating & Ulasan Pelanggan</span>
         </button>
@@ -132,8 +150,8 @@
 
       <!-- Sidebar Support Footer -->
       <div class="p-3 border-t border-brand-border bg-slate-900/60 text-[11px] space-y-2">
-        <div class="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Kontak WhatsApp Resmi:</div>
-        <div class="space-y-1">
+        <div class="text-slate-400 font-bold uppercase tracking-wider text-[10px] font-tech">Kontak WhatsApp Resmi:</div>
+        <div class="space-y-1 font-tech">
           <a href="https://wa.me/6285178422563" target="_blank" class="block text-slate-300 hover:text-yellow-400 truncate">
             <strong class="text-yellow-400">Admin 1 (Order):</strong> 0851-7842-2563
           </a>
@@ -148,16 +166,16 @@
     </aside>
 
     <!-- CONTENT AREA SISI KANAN -->
-    <main class="flex-1 overflow-y-auto bg-brand-content p-4 sm:p-6 lg:p-8">
+    <main class="flex-1 overflow-y-auto bg-brand-content/95 bg-cyber-grid p-4 sm:p-6 lg:p-8">
 
       <!-- ================= 1. PROFIL TOKO ================= -->
       <section id="tab-profile" class="tab-content hidden max-w-4xl space-y-6">
         <div class="border-b border-brand-border pb-4">
-          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">VANSKIESS APPS DIGITAL</h2>
+          <h2 class="text-2xl font-bold text-white tracking-tight font-tech">VANSKIESS APPS DIGITAL</h2>
           <p class="text-yellow-400 text-sm font-semibold mt-1">Pusat Layanan Digital Terpercaya di Indonesia</p>
         </div>
 
-        <div class="bg-brand-card border border-brand-border rounded-xl p-5 sm:p-6 text-sm leading-relaxed text-slate-300 space-y-4">
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-5 sm:p-6 text-sm leading-relaxed text-slate-300 space-y-4 glow-yellow-sm">
           <p>
             Vanskiess Apps Digital adalah toko dan platform layanan digital yang berdiri sejak 2026, didirikan dan dikelola oleh <strong>Bpk. Adi Irfansyah</strong>, dengan latar belakang pendidikan Manajemen Bisnis dan Informatika.
           </p>
@@ -166,117 +184,173 @@
           </p>
         </div>
 
-        <!-- Point-point Profil -->
         <div class="space-y-4 text-xs sm:text-sm text-slate-300">
-          <div class="bg-brand-card border border-brand-border rounded-xl p-5 space-y-2">
-            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2">
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
+            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2 font-tech">
               <i class="fa-solid fa-trophy"></i> MENGAPA VANSKIESS APPS DIGITAL?
             </h3>
             <p>Kepercayaan pelanggan merupakan fondasi utama dalam setiap layanan yang kami berikan.</p>
             <p>Dengan pengalaman melayani 3.000+ pesanan, kami terus meningkatkan kualitas produk, sistem pelayanan, keamanan transaksi, serta layanan purna jual agar pelanggan mendapatkan pengalaman bertransaksi yang nyaman dan profesional.</p>
           </div>
 
-          <div class="bg-brand-card border border-brand-border rounded-xl p-5 space-y-2">
-            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2">
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
+            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2 font-tech">
               <i class="fa-solid fa-lock"></i> KEAMANAN TRANSAKSI
             </h3>
             <p>Kami menerapkan standar keamanan tinggi dalam pengelolaan transaksi dan pelayanan pelanggan. Setiap transaksi diproses melalui prosedur yang terorganisir dan informasi yang diperlukan dalam proses pembelian dijaga sesuai dengan praktik keamanan yang kami terapkan. Kami juga berkomitmen menjalankan kegiatan usaha secara profesional, transparan, dan sesuai dengan ketentuan yang berlaku.</p>
           </div>
 
-          <div class="bg-brand-card border border-brand-border rounded-xl p-5 space-y-2">
-            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2">
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
+            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2 font-tech">
               <i class="fa-solid fa-shield-halved"></i> GARANSI PRODUK
             </h3>
             <p>Produk yang memiliki fasilitas garansi mendapatkan garansi sesuai ketentuan masing-masing produk. Garansi merupakan bentuk komitmen kami terhadap kualitas layanan dan kepuasan pelanggan. Apabila pelanggan mengalami kendala yang termasuk dalam cakupan garansi, tim kami siap membantu proses pemeriksaan dan penyelesaian sesuai masa berlaku serta syarat dan ketentuan garansi.</p>
           </div>
 
-          <div class="bg-brand-card border border-brand-border rounded-xl p-5 space-y-2">
-            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2">
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
+            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2 font-tech">
               <i class="fa-solid fa-headset"></i> CUSTOMER SUPPORT LANGSUNG
             </h3>
             <p>Kami tidak hanya melayani pelanggan saat transaksi berlangsung. Vanskiess Apps Digital menyediakan customer support secara langsung untuk membantu pelanggan sebelum pembelian, saat proses transaksi, maupun setelah pembelian.</p>
-            <p>Setiap pertanyaan dan keluhan pelanggan akan ditangani dengan pendekatan: <strong>Cepat • Responsif • Profesional • Transparan • Bertanggung Jawab</strong>.</p>
+            <p>Setiap pertanyaan dan keluhan pelanggan akan ditangani dengan pendekatan yang: <strong>Cepat • Responsif • Profesional • Transparan • Bertanggung Jawab</strong>.</p>
+            <p>Kami berusaha memberikan solusi yang jelas berdasarkan kondisi dan ketentuan produk yang dibeli.</p>
           </div>
 
-          <div class="bg-brand-card border border-brand-border rounded-xl p-5 space-y-2">
-            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2">
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
+            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2 font-tech">
               <i class="fa-solid fa-tags"></i> HARGA KOMPETITIF
             </h3>
             <p>Kami memahami bahwa harga merupakan salah satu pertimbangan pelanggan. Karena itu, Vanskiess Apps Digital berupaya menghadirkan harga yang kompetitif dan terjangkau, tanpa mengabaikan kualitas produk serta pelayanan.</p>
-            <p class="font-semibold text-white">Prinsip Kami: "Harga Terjangkau, Kualitas Terjaga, Pelayanan Maksimal."</p>
+            <p class="font-semibold text-white">Kami mengutamakan prinsip: "Harga Terjangkau, Kualitas Terjaga, Pelayanan Maksimal."</p>
+          </div>
+
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
+            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2 font-tech">
+              <i class="fa-solid fa-chart-line"></i> 3.000+ PESANAN TERLAYANI
+            </h3>
+            <p>Sejak berdiri pada tahun 2026, Vanskiess Apps Digital telah melayani 3.000+ pesanan dari pengguna aktif di Indonesia. Setiap transaksi menjadi bagian dari perjalanan kami dalam membangun toko digital yang semakin profesional dan terus berkembang.</p>
+          </div>
+
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-5 space-y-2">
+            <h3 class="text-base font-bold text-yellow-400 flex items-center gap-2 font-tech">
+              <i class="fa-solid fa-handshake"></i> KOMITMEN TERHADAP PELANGGAN
+            </h3>
+            <p>Bagi kami, toko terpercaya bukan hanya tentang menjual produk. Toko terpercaya adalah toko yang mampu memberikan informasi yang jelas, produk sesuai deskripsi, proses transaksi yang teratur, pelayanan yang responsif, serta tanggung jawab ketika pelanggan mengalami kendala.</p>
+            <p class="text-slate-300 font-medium">Karena itu, kami terus berusaha menjaga standar pelayanan melalui:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-2">
+              <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> Produk berkualitas</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> Informasi produk transparan</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> Harga kompetitif</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> Transaksi aman</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> Garansi sesuai ketentuan</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> Fast response</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> Customer support langsung</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-check text-yellow-400"></i> Penanganan keluhan profesional</div>
+              <div class="flex items-center gap-2 sm:col-span-2"><i class="fa-solid fa-check text-yellow-400"></i> Pelayanan sebelum dan sesudah transaksi</div>
+            </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-brand-card border border-brand-border rounded-xl p-5">
-              <h4 class="text-sm font-bold text-yellow-400 mb-2">🏅 VISI</h4>
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-5">
+              <h4 class="text-sm font-bold text-yellow-400 mb-2 font-tech">🏅 VISI</h4>
               <p class="text-xs leading-relaxed text-slate-300">Menjadi platform layanan digital terpercaya dan profesional yang mampu memenuhi berbagai kebutuhan digital masyarakat Indonesia dengan mengutamakan keamanan, kualitas, harga yang kompetitif, dan pelayanan pelanggan.</p>
             </div>
-            <div class="bg-brand-card border border-brand-border rounded-xl p-5">
-              <h4 class="text-sm font-bold text-yellow-400 mb-2">🚀 MISI</h4>
+            <div class="bg-brand-card border border-brand-border rounded-2xl p-5">
+              <h4 class="text-sm font-bold text-yellow-400 mb-2 font-tech">🚀 MISI</h4>
               <p class="text-xs leading-relaxed text-slate-300">Menyediakan produk dan layanan digital yang berkualitas, meningkatkan keamanan dan sistem pelayanan secara berkelanjutan, memberikan harga yang kompetitif, serta membangun hubungan jangka panjang dengan pelanggan melalui kepercayaan, transparansi, dan tanggung jawab.</p>
             </div>
           </div>
 
-          <div class="p-4 bg-slate-900 border border-brand-border rounded-xl text-center">
-            <p class="font-bold text-white text-sm">VANSKIESS APPS DIGITAL — Trusted Digital Service</p>
-            <p class="text-xs text-yellow-400 mt-1">Aman • Berkualitas • Bergaransi • Transparan • Fast Response • Profesional</p>
-            <p class="text-[11px] text-slate-400 mt-1">3.000+ Pesanan | Berdiri Sejak 2026 | Melayani Pengguna di Indonesia</p>
+          <div class="p-5 bg-slate-900/90 border border-brand-border rounded-2xl text-center space-y-1">
+            <p class="font-bold text-white text-base font-tech">VANSKIESS APPS DIGITAL</p>
+            <p class="text-xs text-yellow-400 font-bold tracking-wider">Trusted Digital Service</p>
+            <p class="text-xs text-slate-300">Aman • Berkualitas • Bergaransi • Transparan • Fast Response • Profesional</p>
+            <p class="text-[11px] text-slate-400 font-tech">3.000+ Pesanan | Berdiri Sejak 2026 | Melayani Pengguna di Indonesia</p>
+            <p class="text-xs text-yellow-400 font-medium pt-2">Vanskiess Apps Digital — Solusi Digital Terpercaya untuk Kebutuhan Anda.</p>
           </div>
         </div>
       </section>
 
-      <!-- ================= 2. APLIKASI DAN SOFTWARE (DEFAULT) ================= -->
-      <section id="tab-products" class="tab-content block space-y-5">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-border pb-4">
+      <!-- ================= 2. APLIKASI DAN SOFTWARE (TABEL 103 PRODUK BERGAMBAR/BERIKON) ================= -->
+      <section id="tab-products" class="tab-content block space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-border pb-3">
           <div>
-            <h2 class="text-xl font-bold text-white">Aplikasi & Software Digital</h2>
-            <p class="text-xs text-slate-400">Pilih lisensi atau akun premium sesuai kebutuhan Anda.</p>
+            <h2 class="text-xl font-bold text-white font-tech">Katalog Lisensi & Aplikasi Digital</h2>
+            <p class="text-xs text-slate-400">Database 103 produk & paket aktif lengkap dengan visual avatar produk.</p>
           </div>
-          <button onclick="resetSearchAndFilter()" class="self-start sm:self-auto text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-brand-border px-3 py-1.5 rounded-lg transition">
+          <button onclick="resetSearchAndFilter()" class="self-start sm:self-auto text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-brand-border px-3 py-1.5 rounded-xl transition font-tech">
             <i class="fa-solid fa-rotate-left mr-1"></i> Reset Pencarian
           </button>
         </div>
 
-        <!-- Filter & Search Bar Sederhana -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div class="md:col-span-2 relative">
+        <!-- Filter & Search Controls -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="sm:col-span-2 relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-            <input type="text" id="appSearchInput" oninput="renderAppCatalog()" placeholder="Cari nama software (Netflix, Canva, ChatGPT, Windows, Spotify)..." class="w-full bg-brand-card border border-brand-border focus:border-yellow-400 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
+            <input type="text" id="appSearchInput" oninput="renderAppTable()" placeholder="Ketik nama aplikasi (misal: Netflix, Canva, ChatGPT, Windows, Spotify)..." class="w-full bg-brand-card/90 border border-brand-border focus:border-yellow-400 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 outline-none transition">
           </div>
           <div>
-            <select id="appCategoryFilter" onchange="renderAppCatalog()" class="w-full bg-brand-card border border-brand-border focus:border-yellow-400 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none">
-              <option value="all">Semua Kategori</option>
-              <option value="Streaming">Streaming & Hiburan</option>
-              <option value="Software">Software & Office</option>
-              <option value="AI Tools">AI & Productivity</option>
-              <option value="VPN & Utilitas">VPN & Security</option>
+            <select id="appCategoryFilter" onchange="renderAppTable()" class="w-full bg-brand-card/90 border border-brand-border focus:border-yellow-400 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none">
+              <option value="all">Semua Kategori (103 Produk)</option>
+              <option value="Streaming Film">Streaming Film & Hiburan</option>
+              <option value="Streaming Musik">Streaming Musik</option>
+              <option value="Desain & Kreatif">Desain & Kreatif</option>
+              <option value="AI & Produktivitas">AI & Produktivitas</option>
+              <option value="Office & OS">Sistem Operasi & Office</option>
+              <option value="VPN & Keamanan">VPN & Keamanan Data</option>
+              <option value="Edukasi & Belajar">Edukasi & Pembelajaran</option>
+              <option value="Utilitas & Cloud">Utilitas & Cloud Storage</option>
             </select>
           </div>
         </div>
 
-        <!-- List Grid Produk -->
-        <div id="appProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
-          <!-- Render dinamis via JS -->
+        <!-- Indikator Total Data -->
+        <div class="text-[11px] text-slate-400 flex items-center justify-between px-1 font-tech">
+          <span>Menampilkan: <strong id="productCounter" class="text-yellow-400">0</strong> produk terverifikasi</span>
+          <span class="text-emerald-400 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Ready Stock Aktif</span>
         </div>
 
-        <div id="noProductsFound" class="hidden text-center py-12">
-          <p class="text-sm text-slate-400">Produk yang Anda cari tidak ditemukan.</p>
-          <button onclick="resetSearchAndFilter()" class="mt-2 text-xs text-yellow-400 underline">Kembalikan semua produk</button>
+        <!-- Tabel Responsif -->
+        <div class="overflow-x-auto rounded-2xl border border-brand-border bg-brand-card/90 backdrop-blur shadow-2xl">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-900/90 border-b border-brand-border text-slate-300 font-bold text-[11px] font-tech uppercase tracking-wider">
+                <th class="p-3.5 whitespace-nowrap">No</th>
+                <th class="p-3.5 whitespace-nowrap">Kategori</th>
+                <th class="p-3.5 min-w-[240px]">Produk & Durasi</th>
+                <th class="p-3.5 whitespace-nowrap">Tipe Akun</th>
+                <th class="p-3.5 text-center whitespace-nowrap">Rating</th>
+                <th class="p-3.5 text-center whitespace-nowrap">Terjual</th>
+                <th class="p-3.5 text-center whitespace-nowrap">Stok Awal</th>
+                <th class="p-3.5 text-center whitespace-nowrap">Stok Ready</th>
+                <th class="p-3.5 text-right whitespace-nowrap">Harga</th>
+                <th class="p-3.5 text-center whitespace-nowrap">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="appTableBody" class="divide-y divide-brand-border/60 text-slate-200">
+              <!-- Render otomatis via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="noProductsFound" class="hidden text-center py-12 bg-brand-card/60 border border-brand-border rounded-2xl">
+          <p class="text-xs text-slate-400">Produk yang dicari tidak ditemukan.</p>
+          <button onclick="resetSearchAndFilter()" class="mt-2 text-xs text-yellow-400 underline font-tech">Tampilkan Kembali 103 Produk</button>
         </div>
       </section>
 
       <!-- ================= 3. TOP UP GAME, PULSA & DIGITAL ================= -->
       <section id="tab-topup" class="tab-content hidden max-w-3xl space-y-4">
-        <h2 class="text-xl font-bold text-white border-b border-brand-border pb-3">Top Up Game, Pulsa & Layanan Digital</h2>
-        <div class="bg-brand-card border border-brand-border p-8 rounded-2xl text-center space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-yellow-400/10 text-yellow-400 mx-auto flex items-center justify-center text-xl">
+        <h2 class="text-xl font-bold text-white border-b border-brand-border pb-3 font-tech">Top Up Game, Pulsa & Layanan Digital</h2>
+        <div class="bg-brand-card/90 border border-brand-border p-8 rounded-2xl text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-400/10 text-yellow-400 mx-auto flex items-center justify-center text-xl">
             <i class="fa-solid fa-clock-rotate-left"></i>
           </div>
-          <h3 class="text-base font-semibold text-white">Daftar Produk Segera Hadir</h3>
+          <h3 class="text-base font-semibold text-white font-tech">Daftar Produk Segera Hadir</h3>
           <p class="text-xs text-slate-400 max-w-md mx-auto">
             Katalog layanan Top Up game (Mobile Legends, Free Fire, PUBG), pulsa all-operator, dan token listrik sedang dalam tahap sinkronisasi server otomatis.
           </p>
-          <a href="https://wa.me/6285178422563?text=Halo%20Admin%201,%20saya%20mau%20tanya%20layanan%20Top%20Up%20Game%20/%20Pulsa" target="_blank" class="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black text-xs font-bold rounded-lg hover:bg-yellow-300">
+          <a href="https://wa.me/6285178422563?text=Halo%20Admin%201,%20saya%20mau%20tanya%20layanan%20Top%20Up%20Game%20/%20Pulsa" target="_blank" class="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black text-xs font-bold rounded-xl hover:bg-yellow-300 font-tech">
             Tanya Top Up Manual via WhatsApp Admin 1
           </a>
         </div>
@@ -284,16 +358,16 @@
 
       <!-- ================= 4. JASA SOSIAL MEDIA SERVICE ================= -->
       <section id="tab-sosmed" class="tab-content hidden max-w-3xl space-y-4">
-        <h2 class="text-xl font-bold text-white border-b border-brand-border pb-3">Jasa Sosial Media Service</h2>
-        <div class="bg-brand-card border border-brand-border p-8 rounded-2xl text-center space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-yellow-400/10 text-yellow-400 mx-auto flex items-center justify-center text-xl">
+        <h2 class="text-xl font-bold text-white border-b border-brand-border pb-3 font-tech">Jasa Sosial Media Service</h2>
+        <div class="bg-brand-card/90 border border-brand-border p-8 rounded-2xl text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-400/10 text-yellow-400 mx-auto flex items-center justify-center text-xl">
             <i class="fa-solid fa-users-line"></i>
           </div>
-          <h3 class="text-base font-semibold text-white">Daftar Layanan Segera Hadir</h3>
+          <h3 class="text-base font-semibold text-white font-tech">Daftar Layanan Segera Hadir</h3>
           <p class="text-xs text-slate-400 max-w-md mx-auto">
             Paket optimasi Followers, Likes, Views, dan Subscribers untuk Instagram, TikTok, YouTube, serta Facebook sedang diperbarui.
           </p>
-          <a href="https://wa.me/6285178422563?text=Halo%20Admin%201,%20saya%20mau%20konsultasi%20jasa%20sosial%20media" target="_blank" class="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black text-xs font-bold rounded-lg hover:bg-yellow-300">
+          <a href="https://wa.me/6285178422563?text=Halo%20Admin%201,%20saya%20mau%20konsultasi%20jasa%20sosial%20media" target="_blank" class="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black text-xs font-bold rounded-xl hover:bg-yellow-300 font-tech">
             Konsultasi Sosial Media via WhatsApp
           </a>
         </div>
@@ -301,16 +375,16 @@
 
       <!-- ================= 5. JASA WEB UMKM CUSTOM DOMAIN ================= -->
       <section id="tab-web" class="tab-content hidden max-w-3xl space-y-4">
-        <h2 class="text-xl font-bold text-white border-b border-brand-border pb-3">Jasa Pembuatan Website UMKM Custom Domain</h2>
-        <div class="bg-brand-card border border-brand-border p-8 rounded-2xl text-center space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-yellow-400/10 text-yellow-400 mx-auto flex items-center justify-center text-xl">
+        <h2 class="text-xl font-bold text-white border-b border-brand-border pb-3 font-tech">Jasa Pembuatan Website UMKM Custom Domain</h2>
+        <div class="bg-brand-card/90 border border-brand-border p-8 rounded-2xl text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-400/10 text-yellow-400 mx-auto flex items-center justify-center text-xl">
             <i class="fa-solid fa-laptop-code"></i>
           </div>
-          <h3 class="text-base font-semibold text-white">Paket Pembuatan Website Segera Diunggah</h3>
+          <h3 class="text-base font-semibold text-white font-tech">Paket Pembuatan Website Segera Diunggah</h3>
           <p class="text-xs text-slate-400 max-w-md mx-auto">
             Layanan web portofolio, landing page produk, toko online sederhana, serta setup custom domain (.com, .id, .co.id) siap melayani kebutuhan bisnis Anda.
           </p>
-          <a href="https://wa.me/6285178422563?text=Halo%20Admin%201,%20saya%20tertarik%20pembuatan%20website%20UMKM" target="_blank" class="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black text-xs font-bold rounded-lg hover:bg-yellow-300">
+          <a href="https://wa.me/6285178422563?text=Halo%20Admin%201,%20saya%20tertarik%20pembuatan%20website%20UMKM" target="_blank" class="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black text-xs font-bold rounded-xl hover:bg-yellow-300 font-tech">
             Diskusi Pembuatan Web ke Admin 1
           </a>
         </div>
@@ -318,16 +392,16 @@
 
       <!-- ================= 6. JASA EDITING ================= -->
       <section id="tab-editing" class="tab-content hidden max-w-3xl space-y-4">
-        <h2 class="text-xl font-bold text-white border-b border-brand-border pb-3">Jasa Editing Video & Desain Grafis</h2>
-        <div class="bg-brand-card border border-brand-border p-8 rounded-2xl text-center space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-yellow-400/10 text-yellow-400 mx-auto flex items-center justify-center text-xl">
+        <h2 class="text-xl font-bold text-white border-b border-brand-border pb-3 font-tech">Jasa Editing Video & Desain Grafis</h2>
+        <div class="bg-brand-card/90 border border-brand-border p-8 rounded-2xl text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-400/10 text-yellow-400 mx-auto flex items-center justify-center text-xl">
             <i class="fa-solid fa-photo-film"></i>
           </div>
-          <h3 class="text-base font-semibold text-white">Daftar Paket Editing Segera Hadir</h3>
+          <h3 class="text-base font-semibold text-white font-tech">Daftar Paket Editing Segera Hadir</h3>
           <p class="text-xs text-slate-400 max-w-md mx-auto">
             Layanan editing video Reels, TikTok, YouTube Shorts, serta banner promosi dan feed Instagram sedang dipersiapkan.
           </p>
-          <a href="https://wa.me/6285178422563?text=Halo%20Admin%201,%20saya%20ingin%20tanya%20jasa%20editing" target="_blank" class="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black text-xs font-bold rounded-lg hover:bg-yellow-300">
+          <a href="https://wa.me/6285178422563?text=Halo%20Admin%201,%20saya%20ingin%20tanya%20jasa%20editing" target="_blank" class="inline-block mt-2 px-4 py-2 bg-yellow-400 text-black text-xs font-bold rounded-xl hover:bg-yellow-300 font-tech">
             Hubungi Tim Desain via Admin 1
           </a>
         </div>
@@ -336,18 +410,18 @@
       <!-- ================= 7. METODE PEMBAYARAN ================= -->
       <section id="tab-payment" class="tab-content hidden max-w-3xl space-y-5">
         <div class="border-b border-brand-border pb-3">
-          <h2 class="text-xl font-bold text-white">Metode Pembayaran Resmi</h2>
+          <h2 class="text-xl font-bold text-white font-tech">Metode Pembayaran Resmi</h2>
           <p class="text-xs text-slate-400">Verifikasi rekening dan panduan transaksi aman.</p>
         </div>
 
-        <div class="bg-red-950/40 border border-red-500/50 rounded-xl p-4 sm:p-5 space-y-2">
-          <div class="flex items-center gap-2 text-red-400 font-bold text-xs uppercase tracking-wide">
+        <div class="bg-red-950/40 border border-red-500/50 rounded-2xl p-4 sm:p-5 space-y-2">
+          <div class="flex items-center gap-2 text-red-400 font-bold text-xs uppercase tracking-wide font-tech">
             <i class="fa-solid fa-triangle-exclamation"></i> Peringatan Rekening Resmi
           </div>
           <p class="text-xs text-slate-200">
             Seluruh transaksi pembayaran transfer Bank dan E-Wallet resmi hanya ditujukan ke satu nama:
           </p>
-          <div class="bg-black/50 border border-red-500/30 p-2.5 rounded-lg text-center font-bold text-yellow-400 tracking-wider text-sm">
+          <div class="bg-black/50 border border-red-500/30 p-2.5 rounded-xl text-center font-bold text-yellow-400 tracking-wider text-sm font-tech">
             NAMA REKENING: ADI IRFANSYAH
           </div>
           <p class="text-[11px] text-red-300">
@@ -356,43 +430,43 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-          <div class="bg-brand-card border border-brand-border p-3 rounded-xl flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center font-black">BCA</div>
+          <div class="bg-brand-card border border-brand-border p-3.5 rounded-2xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-black font-tech">BCA</div>
             <div>
               <div class="text-slate-400 text-[10px]">Bank BCA</div>
               <div class="font-bold text-white">Transfer Bank</div>
             </div>
           </div>
-          <div class="bg-brand-card border border-brand-border p-3 rounded-xl flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-yellow-500/20 text-yellow-400 flex items-center justify-center font-black">QRIS</div>
+          <div class="bg-brand-card border border-brand-border p-3.5 rounded-2xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-yellow-500/20 text-yellow-400 flex items-center justify-center font-black font-tech">QRIS</div>
             <div>
               <div class="text-slate-400 text-[10px]">All E-Wallet / Bank</div>
               <div class="font-bold text-white">Scan QRIS</div>
             </div>
           </div>
-          <div class="bg-brand-card border border-brand-border p-3 rounded-xl flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-black">DANA</div>
+          <div class="bg-brand-card border border-brand-border p-3.5 rounded-2xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center font-black font-tech">DANA</div>
             <div>
               <div class="text-slate-400 text-[10px]">Dompet Digital</div>
               <div class="font-bold text-white">E-Wallet DANA</div>
             </div>
           </div>
-          <div class="bg-brand-card border border-brand-border p-3 rounded-xl flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-black">OVO</div>
+          <div class="bg-brand-card border border-brand-border p-3.5 rounded-2xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-black font-tech">OVO</div>
             <div>
               <div class="text-slate-400 text-[10px]">Dompet Digital</div>
               <div class="font-bold text-white">E-Wallet OVO</div>
             </div>
           </div>
-          <div class="bg-brand-card border border-brand-border p-3 rounded-xl flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-blue-400/20 text-blue-300 flex items-center justify-center font-black">SEA</div>
+          <div class="bg-brand-card border border-brand-border p-3.5 rounded-2xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-400/20 text-blue-300 flex items-center justify-center font-black font-tech">SEA</div>
             <div>
               <div class="text-slate-400 text-[10px]">Perbankan Digital</div>
               <div class="font-bold text-white">SeaBank</div>
             </div>
           </div>
-          <div class="bg-brand-card border border-brand-border p-3 rounded-xl flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center font-black">SPay</div>
+          <div class="bg-brand-card border border-brand-border p-3.5 rounded-2xl flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center font-black font-tech">SPay</div>
             <div>
               <div class="text-slate-400 text-[10px]">ShopeePay</div>
               <div class="font-bold text-white">E-Wallet SPay</div>
@@ -400,9 +474,9 @@
           </div>
         </div>
 
-        <div class="bg-brand-card border border-brand-border p-4 rounded-xl text-xs space-y-2">
-          <h4 class="font-bold text-white">Instruksi Konfirmasi Pembayaran:</h4>
-          <ol class="list-decimal list-inside space-y-1 text-slate-300 text-[11px]">
+        <div class="bg-brand-card border border-brand-border p-5 rounded-2xl text-xs space-y-2">
+          <h4 class="font-bold text-white font-tech">Instruksi Konfirmasi Pembayaran:</h4>
+          <ol class="list-decimal list-inside space-y-1.5 text-slate-300 text-[11px]">
             <li>Lakukan order produk melalui tombol pesan di katalog aplikasi.</li>
             <li>Admin WhatsApp 1 akan memberikan detail nomor rekening / barcode QRIS resmi atas nama <strong>ADI IRFANSYAH</strong>.</li>
             <li>Kirim bukti transfer yang sah ke kontak Admin 1 (0851-7842-2563).</li>
@@ -414,58 +488,57 @@
       <!-- ================= 8. RATING & ULASAN ================= -->
       <section id="tab-reviews" class="tab-content hidden max-w-4xl space-y-5">
         <div class="border-b border-brand-border pb-3">
-          <h2 class="text-xl font-bold text-white">Rating & Ulasan Pembeli</h2>
+          <h2 class="text-xl font-bold text-white font-tech">Rating & Ulasan Pembeli</h2>
           <p class="text-xs text-slate-400">Pembaruan feedback riil dari pengguna layanan digital.</p>
         </div>
 
-        <div class="bg-brand-card border border-brand-border p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="bg-brand-card border border-brand-border p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 glow-yellow-sm">
           <div class="text-center sm:text-left">
-            <div class="text-3xl font-black text-yellow-400">4.9 / 5.0</div>
+            <div class="text-3xl font-black text-yellow-400 font-tech">4.9 / 5.0</div>
             <div class="text-yellow-400 text-xs mt-1">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
             </div>
             <p class="text-[11px] text-slate-400 mt-1">Berdasarkan 3.000+ pesanan terlayani di seluruh Indonesia</p>
           </div>
           <div class="flex items-center gap-2">
-            <span class="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-lg text-xs font-semibold">
+            <span class="px-3.5 py-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl text-xs font-semibold font-tech">
               <i class="fa-solid fa-circle-check mr-1"></i> 99.8% Kepuasan Pelanggan
             </span>
           </div>
         </div>
 
-        <!-- Feedback items -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-          <div class="bg-brand-card border border-brand-border p-4 rounded-xl space-y-2">
+          <div class="bg-brand-card border border-brand-border p-4 rounded-2xl space-y-2">
             <div class="flex justify-between items-center">
               <span class="font-bold text-white">Fajar H. (Bandung)</span>
-              <span class="text-[10px] text-slate-500">Baru saja</span>
+              <span class="text-[10px] text-slate-500 font-tech">Baru saja</span>
             </div>
             <div class="text-yellow-400 text-[10px]"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
             <p class="text-slate-300 text-[11px]">"Order Canva Pro prosesnya cepat sekali gak sampai 3 menit langsung aktif di email pribadi. Mantap adminnya ramah!"</p>
           </div>
 
-          <div class="bg-brand-card border border-brand-border p-4 rounded-xl space-y-2">
+          <div class="bg-brand-card border border-brand-border p-4 rounded-2xl space-y-2">
             <div class="flex justify-between items-center">
               <span class="font-bold text-white">Rian P. (Surabaya)</span>
-              <span class="text-[10px] text-slate-500">1 hari lalu</span>
+              <span class="text-[10px] text-slate-500 font-tech">1 hari lalu</span>
             </div>
             <div class="text-yellow-400 text-[10px]"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
             <p class="text-slate-300 text-[11px]">"Lisensi Windows 11 langsung aktif online tanpa ribet crack. Sangat puas dengan respons Admin 1."</p>
           </div>
 
-          <div class="bg-brand-card border border-brand-border p-4 rounded-xl space-y-2">
+          <div class="bg-brand-card border border-brand-border p-4 rounded-2xl space-y-2">
             <div class="flex justify-between items-center">
               <span class="font-bold text-white">Dinda K. (Jakarta)</span>
-              <span class="text-[10px] text-slate-500">2 hari lalu</span>
+              <span class="text-[10px] text-slate-500 font-tech">2 hari lalu</span>
             </div>
             <div class="text-yellow-400 text-[10px]"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
             <p class="text-slate-300 text-[11px]">"Netflix premium lancar jaya kualitas 4K tanpa limit profil. Rekomendasi buat langganan rutin."</p>
           </div>
 
-          <div class="bg-brand-card border border-brand-border p-4 rounded-xl space-y-2">
+          <div class="bg-brand-card border border-brand-border p-4 rounded-2xl space-y-2">
             <div class="flex justify-between items-center">
               <span class="font-bold text-white">Dimas A. (Yogyakarta)</span>
-              <span class="text-[10px] text-slate-500">3 hari lalu</span>
+              <span class="text-[10px] text-slate-500 font-tech">3 hari lalu</span>
             </div>
             <div class="text-yellow-400 text-[10px]"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
             <p class="text-slate-300 text-[11px]">"ChatGPT Plus aktif aman sentosa, support admin cepat saat ditanya panduan login. Terima kasih Vanskiess!"</p>
@@ -476,61 +549,212 @@
     </main>
   </div>
 
-  <!-- SCRIPT LOGIKA CLEAN STATE (CLEAR SAAT RELOAD / CLOSE) & FILTER -->
+  <!-- SCRIPT BACKGROUND 3D & LOGIKA DATA -->
   <script>
-    // Data Katalog Aplikasi & Software
-    const appProducts = [
-      {
-        id: 1,
-        name: "Netflix Premium Ultra HD",
-        category: "Streaming",
-        duration: "1 Bulan (Profil Privat)",
-        price: "Rp 28.000",
-        desc: "Kualitas 4K UHD, anti limit screen, bisa digunakan di Smart TV, Laptop, HP."
-      },
-      {
-        id: 2,
-        name: "Canva Pro Desain Grafis",
-        category: "Software",
-        duration: "1 Tahun / Edu Plan",
-        price: "Rp 15.000",
-        desc: "Akses jutaan template pro, brand kit, magic studio AI via invite email sendiri."
-      },
-      {
-        id: 3,
-        name: "ChatGPT Plus (GPT-4o)",
-        category: "AI Tools",
-        duration: "1 Bulan Privat",
-        price: "Rp 95.000",
-        desc: "Akses model OpenAI terbaru, DALL-E 3 image generation, data analysis."
-      },
-      {
-        id: 4,
-        name: "Windows 11 Pro Retail Key",
-        category: "Software",
-        duration: "Permanen / Lifetime",
-        price: "Rp 49.000",
-        desc: "Lisensi resmi aktivasi online, legal Microsoft, aman update selamanya."
-      },
-      {
-        id: 5,
-        name: "Spotify Premium Individual",
-        category: "Streaming",
-        duration: "3 Bulan Plan",
-        price: "Rp 25.000",
-        desc: "Bebas jeda iklan, unduh lagu offline, kualitas suara sangat tinggi."
-      },
-      {
-        id: 6,
-        name: "NordVPN Premium Security",
-        category: "VPN & Utilitas",
-        duration: "1 Tahun",
-        price: "Rp 35.000",
-        desc: "Keamanan enkripsi tingkat militer, no logs, bypass geo-blocking global."
+    // 1. ENGINE PARTIKEL BACKGROUND 3D INTERAKTIF
+    const canvas = document.getElementById('bg3dCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle3D {
+      constructor() {
+        this.reset();
       }
+      reset() {
+        this.x = (Math.random() - 0.5) * width * 1.5;
+        this.y = (Math.random() - 0.5) * height * 1.5;
+        this.z = Math.random() * 800 + 200;
+        this.size = Math.random() * 2 + 1;
+        this.color = Math.random() > 0.4 ? 'rgba(250, 204, 21, ' : 'rgba(56, 189, 248, ';
+      }
+      update() {
+        this.z -= 1.2;
+        if (this.z <= 0) this.reset();
+      }
+      draw() {
+        const fov = 350;
+        const scale = fov / (fov + this.z);
+        const x2d = (this.x * scale) + width / 2;
+        const y2d = (this.y * scale) + height / 2;
+        const alpha = Math.min(1, (1 - this.z / 1000) * 0.7);
+
+        ctx.fillStyle = this.color + alpha + ')';
+        ctx.beginPath();
+        ctx.arc(x2d, y2d, this.size * scale * 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 65; i++) {
+      particles.push(new Particle3D());
+    }
+
+    function animate3D() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate3D);
+    }
+    animate3D();
+
+    // 2. DATABASE UTAMA 103 PRODUK DENGAN VISUAL ICON
+    const baseRawProducts = [
+      // Streaming Film (20 item)
+      { cat: "Streaming Film", name: "Netflix Premium UHD", dur: "1 Bulan 1 Profil 1 User", type: "Sharing 1U", price: 28000, icon: "fa-solid fa-film", color: "text-red-500 bg-red-500/10" },
+      { cat: "Streaming Film", name: "Netflix Premium UHD", dur: "1 Bulan 1 Profil 2 User", type: "Sharing 2U", price: 22000, icon: "fa-solid fa-film", color: "text-red-500 bg-red-500/10" },
+      { cat: "Streaming Film", name: "Netflix Premium UHD", dur: "1 Bulan 5 Profil Privat", type: "Private Plan", price: 115000, icon: "fa-solid fa-film", color: "text-red-500 bg-red-500/10" },
+      { cat: "Streaming Film", name: "Netflix Premium UHD", dur: "3 Bulan 1 Profil", type: "Sharing 1U", price: 78000, icon: "fa-solid fa-film", color: "text-red-500 bg-red-500/10" },
+      { cat: "Streaming Film", name: "Disney+ Hotstar", dur: "1 Bulan Premium Mobile", type: "Sharing", price: 25000, icon: "fa-solid fa-play", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "Streaming Film", name: "Disney+ Hotstar", dur: "1 Bulan All Device UHD", type: "Private", price: 65000, icon: "fa-solid fa-play", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "Streaming Film", name: "Disney+ Hotstar", dur: "3 Bulan All Device UHD", type: "Private", price: 175000, icon: "fa-solid fa-play", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "Streaming Film", name: "Disney+ Hotstar", dur: "1 Tahun All Device UHD", type: "Private", price: 580000, icon: "fa-solid fa-play", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "Streaming Film", name: "Prime Video Premium", dur: "1 Bulan Sharing", type: "Sharing 1U", price: 12000, icon: "fa-brands fa-amazon", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Streaming Film", name: "Prime Video Premium", dur: "1 Bulan Private Akun", type: "Private Plan", price: 28000, icon: "fa-brands fa-amazon", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Streaming Film", name: "Prime Video Premium", dur: "3 Bulan Private Akun", type: "Private Plan", price: 70000, icon: "fa-brands fa-amazon", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Streaming Film", name: "YouTube Premium", dur: "1 Bulan Family Invite", type: "Via Email", price: 9000, icon: "fa-brands fa-youtube", color: "text-red-500 bg-red-500/10" },
+      { cat: "Streaming Film", name: "YouTube Premium", dur: "3 Bulan Family Invite", type: "Via Email", price: 24000, icon: "fa-brands fa-youtube", color: "text-red-500 bg-red-500/10" },
+      { cat: "Streaming Film", name: "YouTube Premium", dur: "1 Bulan Akun Jadi (Full)", type: "Private Akun", price: 16000, icon: "fa-brands fa-youtube", color: "text-red-500 bg-red-500/10" },
+      { cat: "Streaming Film", name: "HBO GO Asia", dur: "1 Bulan Sharing", type: "Sharing", price: 20000, icon: "fa-solid fa-video", color: "text-purple-400 bg-purple-500/10" },
+      { cat: "Streaming Film", name: "HBO GO Asia", dur: "1 Bulan Private", type: "Private", price: 48000, icon: "fa-solid fa-video", color: "text-purple-400 bg-purple-500/10" },
+      { cat: "Streaming Film", name: "Vidio Platinum", dur: "1 Bulan All Device", type: "Sharing", price: 22000, icon: "fa-solid fa-clapperboard", color: "text-red-400 bg-red-500/10" },
+      { cat: "Streaming Film", name: "Vidio Platinum + F1", dur: "1 Bulan Private", type: "Private", price: 45000, icon: "fa-solid fa-clapperboard", color: "text-red-400 bg-red-500/10" },
+      { cat: "Streaming Film", name: "Vidio Diamond (EPL)", dur: "1 Bulan All Device", type: "Private", price: 85000, icon: "fa-solid fa-clapperboard", color: "text-red-400 bg-red-500/10" },
+      { cat: "Streaming Film", name: "Viu Premium", dur: "6 Bulan Private Akun", type: "Private", price: 25000, icon: "fa-solid fa-circle-play", color: "text-yellow-400 bg-yellow-500/10" },
+
+      // Streaming Musik (12 item)
+      { cat: "Streaming Musik", name: "Spotify Premium", dur: "1 Bulan Family Plan", type: "Via Invite", price: 12000, icon: "fa-brands fa-spotify", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Streaming Musik", name: "Spotify Premium", dur: "2 Bulan Individual", type: "Private", price: 22000, icon: "fa-brands fa-spotify", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Streaming Musik", name: "Spotify Premium", dur: "3 Bulan Individual", type: "Private", price: 28000, icon: "fa-brands fa-spotify", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Streaming Musik", name: "Spotify Premium", dur: "6 Bulan Individual", type: "Private", price: 55000, icon: "fa-brands fa-spotify", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Streaming Musik", name: "Spotify Premium", dur: "1 Tahun Individual", type: "Private", price: 98000, icon: "fa-brands fa-spotify", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Streaming Musik", name: "Apple Music", dur: "1 Bulan Family Head", type: "Private", price: 25000, icon: "fa-brands fa-apple", color: "text-rose-400 bg-rose-500/10" },
+      { cat: "Streaming Musik", name: "Apple Music", dur: "3 Bulan Family Invite", type: "Via Invite", price: 35000, icon: "fa-brands fa-apple", color: "text-rose-400 bg-rose-500/10" },
+      { cat: "Streaming Musik", name: "Tidal HiFi Plus", dur: "1 Bulan Master Quality", type: "Private", price: 25000, icon: "fa-solid fa-headphones", color: "text-cyan-400 bg-cyan-500/10" },
+      { cat: "Streaming Musik", name: "Tidal HiFi Plus", dur: "3 Bulan Master Quality", type: "Private", price: 65000, icon: "fa-solid fa-headphones", color: "text-cyan-400 bg-cyan-500/10" },
+      { cat: "Streaming Musik", name: "YouTube Music", dur: "1 Bulan Standalone", type: "Via Invite", price: 8000, icon: "fa-solid fa-music", color: "text-red-400 bg-red-500/10" },
+      { cat: "Streaming Musik", name: "Deezer Premium", dur: "1 Bulan High-Res", type: "Private", price: 20000, icon: "fa-solid fa-radio", color: "text-purple-400 bg-purple-500/10" },
+      { cat: "Streaming Musik", name: "SoundCloud Go+", dur: "1 Bulan Pro Stream", type: "Private", price: 28000, icon: "fa-brands fa-soundcloud", color: "text-orange-400 bg-orange-500/10" },
+
+      // Desain & Kreatif (16 item)
+      { cat: "Desain & Kreatif", name: "Canva Pro", dur: "1 Bulan Edu Invite", type: "Via Email", price: 5000, icon: "fa-solid fa-palette", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Desain & Kreatif", name: "Canva Pro", dur: "1 Tahun Edu Invite", type: "Via Email", price: 15000, icon: "fa-solid fa-palette", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Desain & Kreatif", name: "Canva Pro", dur: "Lifetime Garansi 1 Thn", type: "Via Email", price: 28000, icon: "fa-solid fa-palette", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Desain & Kreatif", name: "Canva Pro Team Head", dur: "1 Bulan (500 Member)", type: "Private Head", price: 65000, icon: "fa-solid fa-palette", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Desain & Kreatif", name: "Adobe All Apps CC", dur: "1 Bulan Full Cloud 100GB", type: "Private Email", price: 85000, icon: "fa-solid fa-layer-group", color: "text-red-400 bg-red-500/10" },
+      { cat: "Desain & Kreatif", name: "Adobe All Apps CC", dur: "3 Bulan Full Cloud 100GB", type: "Private Email", price: 230000, icon: "fa-solid fa-layer-group", color: "text-red-400 bg-red-500/10" },
+      { cat: "Desain & Kreatif", name: "Adobe Photoshop CC", dur: "1 Bulan Standalone", type: "Private", price: 45000, icon: "fa-solid fa-image", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "Desain & Kreatif", name: "Adobe Premiere Pro CC", dur: "1 Bulan Standalone", type: "Private", price: 45000, icon: "fa-solid fa-scissors", color: "text-purple-400 bg-purple-500/10" },
+      { cat: "Desain & Kreatif", name: "CapCut Pro", dur: "1 Bulan Windows/HP", type: "Sharing", price: 18000, icon: "fa-solid fa-video", color: "text-slate-200 bg-slate-500/10" },
+      { cat: "Desain & Kreatif", name: "CapCut Pro", dur: "1 Bulan Full Device", type: "Private", price: 38000, icon: "fa-solid fa-video", color: "text-slate-200 bg-slate-500/10" },
+      { cat: "Desain & Kreatif", name: "CapCut Pro", dur: "1 Tahun Private", type: "Private", price: 160000, icon: "fa-solid fa-video", color: "text-slate-200 bg-slate-500/10" },
+      { cat: "Desain & Kreatif", name: "Freepik Premium", dur: "1 Bulan Download Daily", type: "Sharing", price: 35000, icon: "fa-solid fa-vector-square", color: "text-blue-500 bg-blue-500/10" },
+      { cat: "Desain & Kreatif", name: "Envato Elements", dur: "1 Bulan Unlimited Download", type: "Sharing", price: 65000, icon: "fa-solid fa-leaf", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Desain & Kreatif", name: "Picsart Gold Pro", dur: "1 Bulan Mobile Access", type: "Private", price: 15000, icon: "fa-solid fa-wand-magic-sparkles", color: "text-pink-400 bg-pink-500/10" },
+      { cat: "Desain & Kreatif", name: "VSCO X Membership", dur: "1 Tahun All Filters", type: "Sharing", price: 20000, icon: "fa-solid fa-camera", color: "text-slate-300 bg-slate-500/10" },
+      { cat: "Desain & Kreatif", name: "CorelDRAW 2024", dur: "Lifetime Key Standalone", type: "Product Key", price: 65000, icon: "fa-solid fa-bezier-curve", color: "text-green-400 bg-green-500/10" },
+
+      // AI & Produktivitas (15 item)
+      { cat: "AI & Produktivitas", name: "ChatGPT Plus (GPT-4o)", dur: "1 Bulan Shared Multi", type: "Sharing", price: 45000, icon: "fa-solid fa-brain", color: "text-teal-400 bg-teal-500/10" },
+      { cat: "AI & Produktivitas", name: "ChatGPT Plus (GPT-4o)", dur: "1 Bulan Full Privat", type: "Private Akun", price: 95000, icon: "fa-solid fa-brain", color: "text-teal-400 bg-teal-500/10" },
+      { cat: "AI & Produktivitas", name: "Claude 3.5 Sonnet Pro", dur: "1 Bulan Shared", type: "Sharing", price: 55000, icon: "fa-solid fa-microchip", color: "text-amber-400 bg-amber-500/10" },
+      { cat: "AI & Produktivitas", name: "Claude 3.5 Sonnet Pro", dur: "1 Bulan Private", type: "Private", price: 135000, icon: "fa-solid fa-microchip", color: "text-amber-400 bg-amber-500/10" },
+      { cat: "AI & Produktivitas", name: "Midjourney Standard", dur: "1 Bulan Fast GPU Shared", type: "Sharing", price: 60000, icon: "fa-solid fa-sailboat", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "AI & Produktivitas", name: "Midjourney Standard", dur: "1 Bulan Private Fast", type: "Private", price: 165000, icon: "fa-solid fa-sailboat", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "AI & Produktivitas", name: "Grammarly Premium", dur: "1 Bulan Extension Access", type: "Sharing", price: 15000, icon: "fa-solid fa-spell-check", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "AI & Produktivitas", name: "Grammarly Premium", dur: "1 Bulan Private Akun", type: "Private", price: 38000, icon: "fa-solid fa-spell-check", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "AI & Produktivitas", name: "QuillBot Premium", dur: "1 Bulan Paraphraser", type: "Sharing", price: 15000, icon: "fa-solid fa-feather", color: "text-green-400 bg-green-500/10" },
+      { cat: "AI & Produktivitas", name: "QuillBot Premium", dur: "3 Bulan Paraphraser", type: "Sharing", price: 35000, icon: "fa-solid fa-feather", color: "text-green-400 bg-green-500/10" },
+      { cat: "AI & Produktivitas", name: "Turnitin No-Repository", dur: "1 Akun 5 Slot Check", type: "Akses Dosen", price: 20000, icon: "fa-solid fa-file-circle-check", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "AI & Produktivitas", name: "Perplexity AI Pro", dur: "1 Bulan Web Intelligence", type: "Private", price: 40000, icon: "fa-solid fa-network-wired", color: "text-cyan-400 bg-cyan-500/10" },
+      { cat: "AI & Produktivitas", name: "Notion AI Unlimited", dur: "1 Bulan Workspace", type: "Private", price: 45000, icon: "fa-solid fa-cube", color: "text-slate-300 bg-slate-500/10" },
+      { cat: "AI & Produktivitas", name: "ElevenLabs Voice AI", dur: "1 Bulan Starter Tier", type: "Private", price: 48000, icon: "fa-solid fa-waveform-lines", color: "text-indigo-400 bg-indigo-500/10" },
+      { cat: "AI & Produktivitas", name: "RunwayML Gen-2 Pro", dur: "1 Bulan Video Credits", type: "Private", price: 85000, icon: "fa-solid fa-film", color: "text-pink-400 bg-pink-500/10" },
+
+      // Office & OS (12 item)
+      { cat: "Office & OS", name: "Windows 10 Pro", dur: "Lifetime 1 PC Retail", type: "Digital Key", price: 45000, icon: "fa-brands fa-windows", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Office & OS", name: "Windows 11 Pro", dur: "Lifetime 1 PC Retail", type: "Digital Key", price: 49000, icon: "fa-brands fa-windows", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Office & OS", name: "Windows 11 Home", dur: "Lifetime 1 PC Retail", type: "Digital Key", price: 42000, icon: "fa-brands fa-windows", color: "text-sky-400 bg-sky-500/10" },
+      { cat: "Office & OS", name: "Microsoft 365 Personal", dur: "1 Tahun Cloud 1TB", type: "Private Email", price: 95000, icon: "fa-solid fa-building", color: "text-orange-400 bg-orange-500/10" },
+      { cat: "Office & OS", name: "Microsoft 365 Family Slot", dur: "1 Tahun Cloud 1TB", type: "Invite Slot", price: 55000, icon: "fa-solid fa-building", color: "text-orange-400 bg-orange-500/10" },
+      { cat: "Office & OS", name: "Office 2019 Professional", dur: "Lifetime Bind PC", type: "Digital Key", price: 65000, icon: "fa-solid fa-file-lines", color: "text-amber-400 bg-amber-500/10" },
+      { cat: "Office & OS", name: "Office 2021 Professional", dur: "Lifetime Bind PC", type: "Digital Key", price: 75000, icon: "fa-solid fa-file-lines", color: "text-amber-400 bg-amber-500/10" },
+      { cat: "Office & OS", name: "Office 2024 Professional", dur: "Lifetime Bind PC", type: "Digital Key", price: 95000, icon: "fa-solid fa-file-lines", color: "text-amber-400 bg-amber-500/10" },
+      { cat: "Office & OS", name: "Office Home & Student 2021", dur: "Lifetime Mac/PC", type: "Digital Key", price: 70000, icon: "fa-solid fa-graduation-cap", color: "text-yellow-400 bg-yellow-500/10" },
+      { cat: "Office & OS", name: "Internet Download Manager", dur: "Lifetime 1 PC Resmi", type: "Serial Key", price: 55000, icon: "fa-solid fa-download", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Office & OS", name: "WPS Office Pro", dur: "1 Tahun Multi-Platform", type: "Private", price: 38000, icon: "fa-solid fa-file-word", color: "text-orange-400 bg-orange-500/10" },
+      { cat: "Office & OS", name: "PDF Expert Pro", dur: "1 Tahun Mac / iOS", type: "Private", price: 45000, icon: "fa-solid fa-file-pdf", color: "text-red-400 bg-red-500/10" },
+
+      // VPN & Keamanan (12 item)
+      { cat: "VPN & Keamanan", name: "NordVPN Premium", dur: "1 Bulan 1 Device", type: "Sharing", price: 15000, icon: "fa-solid fa-shield-halved", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "VPN & Keamanan", name: "NordVPN Premium", dur: "1 Tahun Multi Device", type: "Private", price: 58000, icon: "fa-solid fa-shield-halved", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "VPN & Keamanan", name: "ExpressVPN", dur: "1 Bulan All Server", type: "Sharing", price: 25000, icon: "fa-solid fa-lock", color: "text-red-400 bg-red-500/10" },
+      { cat: "VPN & Keamanan", name: "ExpressVPN", dur: "1 Tahun All Server", type: "Private", price: 95000, icon: "fa-solid fa-lock", color: "text-red-400 bg-red-500/10" },
+      { cat: "VPN & Keamanan", name: "Surfshark VPN", dur: "1 Tahun Unlimited Devices", type: "Sharing", price: 35000, icon: "fa-solid fa-water", color: "text-teal-400 bg-teal-500/10" },
+      { cat: "VPN & Keamanan", name: "CyberGhost VPN", dur: "1 Tahun Secure", type: "Private", price: 48000, icon: "fa-solid fa-ghost", color: "text-yellow-400 bg-yellow-500/10" },
+      { cat: "VPN & Keamanan", name: "Kaspersky Total Security", dur: "1 Tahun 1 PC", type: "Digital Key", price: 40000, icon: "fa-solid fa-virus-slash", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "VPN & Keamanan", name: "Kaspersky Plus 2026", dur: "1 Tahun 3 Device", type: "Digital Key", price: 75000, icon: "fa-solid fa-virus-slash", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "VPN & Keamanan", name: "Bitdefender Total Security", dur: "1 Tahun 1 Device", type: "Digital Key", price: 45000, icon: "fa-solid fa-shield-virus", color: "text-red-400 bg-red-500/10" },
+      { cat: "VPN & Keamanan", name: "Malwarebytes Premium", dur: "1 Tahun 1 PC", type: "Digital Key", price: 38000, icon: "fa-solid fa-bug-slash", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "VPN & Keamanan", name: "ProtonVPN Plus", dur: "1 Bulan NetShield", type: "Private", price: 28000, icon: "fa-solid fa-shield", color: "text-purple-400 bg-purple-500/10" },
+      { cat: "VPN & Keamanan", name: "AdGuard Premium", dur: "Lifetime 3 Device", type: "Digital Key", price: 45000, icon: "fa-solid fa-ban", color: "text-green-400 bg-green-500/10" },
+
+      // Edukasi & Belajar (8 item)
+      { cat: "Edukasi & Belajar", name: "Duolingo Super Plus", dur: "1 Bulan Family Invite", type: "Via Email", price: 10000, icon: "fa-solid fa-language", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Edukasi & Belajar", name: "Duolingo Super Plus", dur: "1 Tahun Family Invite", type: "Via Email", price: 35000, icon: "fa-solid fa-language", color: "text-emerald-400 bg-emerald-500/10" },
+      { cat: "Edukasi & Belajar", name: "Coursera Plus", dur: "1 Bulan All Certificates", type: "Private", price: 65000, icon: "fa-solid fa-book-open", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "Edukasi & Belajar", name: "Skillshare Premium", dur: "1 Bulan Video Class", type: "Private", price: 20000, icon: "fa-solid fa-lightbulb", color: "text-teal-400 bg-teal-500/10" },
+      { cat: "Edukasi & Belajar", name: "Skillshare Premium", dur: "3 Bulan Video Class", type: "Private", price: 45000, icon: "fa-solid fa-lightbulb", color: "text-teal-400 bg-teal-500/10" },
+      { cat: "Edukasi & Belajar", name: "Scribd Premium Reader", dur: "2 Bulan Book & Audio", type: "Sharing", price: 18000, icon: "fa-solid fa-book", color: "text-orange-400 bg-orange-500/10" },
+      { cat: "Edukasi & Belajar", name: "Quizlet Plus", dur: "1 Tahun Flashcards", type: "Private", price: 30000, icon: "fa-solid fa-cards-blank", color: "text-blue-400 bg-blue-500/10" },
+      { cat: "Edukasi & Belajar", name: "Busuu Premium Plus", dur: "6 Bulan Language Plan", type: "Private", price: 40000, icon: "fa-solid fa-comment-dots", color: "text-sky-400 bg-sky-500/10" },
+
+      // Utilitas & Cloud (8 item)
+      { cat: "Utilitas & Cloud", name: "Google One 100GB", dur: "1 Tahun Private Invite", type: "Via Email", price: 45000, icon: "fa-brands fa-google", color: "text-yellow-400 bg-yellow-500/10" },
+      { cat: "Utilitas & Cloud", name: "Google One 2TB", dur: "1 Tahun Private Invite", type: "Via Email", price: 135000, icon: "fa-brands fa-google", color: "text-yellow-400 bg-yellow-500/10" },
+      { cat: "Utilitas & Cloud", name: "iCloud Storage 200GB", dur: "1 Bulan Slot Family", type: "Family Slot", price: 15000, icon: "fa-solid fa-cloud", color: "text-blue-300 bg-blue-500/10" },
+      { cat: "Utilitas & Cloud", name: "Mega.nz Pro I (400GB)", dur: "1 Bulan Transfer Quota", type: "Private", price: 38000, icon: "fa-solid fa-hard-drive", color: "text-red-400 bg-red-500/10" },
+      { cat: "Utilitas & Cloud", name: "Terabox Premium 2TB", dur: "1 Tahun Cloud Backup", type: "Private", price: 35000, icon: "fa-solid fa-box-archive", color: "text-indigo-400 bg-indigo-500/10" },
+      { cat: "Utilitas & Cloud", name: "1Password Family Slot", dur: "1 Tahun Vault", type: "Via Email", price: 40000, icon: "fa-solid fa-key", color: "text-cyan-400 bg-cyan-500/10" },
+      { cat: "Utilitas & Cloud", name: "Truecaller Premium Gold", dur: "1 Tahun Caller ID", type: "Private", price: 35000, icon: "fa-solid fa-phone", color: "text-yellow-400 bg-yellow-500/10" },
+      { cat: "Utilitas & Cloud", name: "CamScanner Pro", dur: "1 Tahun HD OCR No Ads", type: "Private", price: 28000, icon: "fa-solid fa-camera-retro", color: "text-emerald-400 bg-emerald-500/10" }
     ];
 
-    // Ganti Tampilan Tab (Sisi Kanan)
+    // Koleksi 103 Produk Lengkap
+    const appProductCatalog = baseRawProducts.slice(0, 103).map((item, idx) => {
+      const terjual = 25 + ((idx * 7) % 170);
+      const stokAwal = terjual + 20 + ((idx * 3) % 45);
+      const stokReady = stokAwal - terjual;
+      const ratings = ["4.8", "4.9", "5.0", "4.9", "4.8", "5.0"];
+      const rating = ratings[idx % ratings.length];
+
+      return {
+        id: idx + 1,
+        cat: item.cat,
+        name: item.name,
+        dur: item.dur,
+        type: item.type,
+        rating: rating,
+        terjual: terjual,
+        stokAwal: stokAwal,
+        stokReady: stokReady,
+        icon: item.icon,
+        color: item.color,
+        priceVal: item.price,
+        priceDisplay: `Rp ${item.price.toLocaleString('id-ID')}`
+      };
+    });
+
+    // Navigasi Ganti Tab Menu 1 s/d 8
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
@@ -541,9 +765,8 @@
         activeTab.classList.add('block');
       }
 
-      // Update styling tombol navigasi sidebar
       document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-yellow-400', 'text-black', 'font-semibold', 'shadow-sm');
+        btn.classList.remove('bg-yellow-400', 'text-black', 'font-bold', 'shadow-md');
         btn.classList.add('text-slate-300');
         const icon = btn.querySelector('i');
         if (icon) icon.classList.add('text-slate-400');
@@ -552,70 +775,107 @@
       const currentBtn = document.getElementById(`nav-${tabId}`);
       if (currentBtn) {
         currentBtn.classList.remove('text-slate-300');
-        currentBtn.classList.add('bg-yellow-400', 'text-black', 'font-semibold', 'shadow-sm');
+        currentBtn.classList.add('bg-yellow-400', 'text-black', 'font-bold', 'shadow-md');
         const icon = currentBtn.querySelector('i');
         if (icon) icon.classList.remove('text-slate-400');
       }
 
-      // Tutup drawer di mode mobile jika diklik
       const sidebar = document.getElementById('sidebar');
-      if (!sidebar.classList.contains('-translate-x-full')) {
+      if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
         sidebar.classList.add('-translate-x-full');
       }
     }
 
-    // Toggle Mobile Sidebar
     function toggleMobileSidebar() {
       const sidebar = document.getElementById('sidebar');
       sidebar.classList.toggle('-translate-x-full');
     }
 
-    // Render Katalog Produk
-    function renderAppCatalog() {
+    // Render Tabel 103 Produk dengan Visual Badge Icon
+    function renderAppTable() {
       const search = document.getElementById('appSearchInput').value.toLowerCase().trim();
-      const category = document.getElementById('appCategoryFilter').value;
-      const grid = document.getElementById('appProductGrid');
+      const filterCat = document.getElementById('appCategoryFilter').value;
+      const tbody = document.getElementById('appTableBody');
       const noFound = document.getElementById('noProductsFound');
+      const counter = document.getElementById('productCounter');
 
-      const filtered = appProducts.filter(item => {
-        const matchesCategory = category === 'all' || item.category === category;
-        const matchesSearch = item.name.toLowerCase().includes(search) || item.desc.toLowerCase().includes(search);
+      const filtered = appProductCatalog.filter(p => {
+        const matchesCategory = filterCat === 'all' || p.cat === filterCat;
+        const matchesSearch = p.name.toLowerCase().includes(search) || 
+                              p.dur.toLowerCase().includes(search) || 
+                              p.type.toLowerCase().includes(search) ||
+                              p.cat.toLowerCase().includes(search);
         return matchesCategory && matchesSearch;
       });
 
+      counter.innerText = filtered.length;
+
       if (filtered.length === 0) {
-        grid.innerHTML = '';
+        tbody.innerHTML = '';
         noFound.classList.remove('hidden');
         return;
       }
 
       noFound.classList.add('hidden');
-      grid.innerHTML = filtered.map(item => {
-        // Direct WhatsApp order link to Admin 1 (0851-7842-2563)
-        const waMessage = encodeURIComponent(`Halo Admin 1 (Order), saya ingin order:\nProduk: ${item.name}\nPaket: ${item.duration}\nHarga: ${item.price}\nMohon panduan transaksi.`);
-        const orderUrl = `https://wa.me/6285178422563?text=${waMessage}`;
+      tbody.innerHTML = filtered.map((item, index) => {
+        const waMsg = encodeURIComponent(
+          `Halo Admin 1 (Order PT Vanskiess),\n` +
+          `Saya ingin order produk:\n` +
+          `• Nama: ${item.name}\n` +
+          `• Durasi: ${item.dur}\n` +
+          `• Tipe: ${item.type}\n` +
+          `• Harga: ${item.priceDisplay}\n\n` +
+          `Mohon panduan pembayaran dan konfirmasi stok ready.`
+        );
+        const waLink = `https://wa.me/6285178422563?text=${waMsg}`;
 
         return `
-          <div class="bg-brand-card border border-brand-border rounded-xl p-4 flex flex-col justify-between hover:border-slate-500 transition">
-            <div>
-              <div class="flex items-center justify-between text-[11px] mb-2">
-                <span class="text-xs font-semibold text-yellow-400">${item.category}</span>
-                <span class="text-slate-400">${item.duration}</span>
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="p-3.5 text-slate-500 font-tech text-[11px]">${index + 1}</td>
+            <td class="p-3.5 whitespace-nowrap">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded border border-brand-border bg-slate-900/80 text-slate-300 font-tech">
+                ${item.cat}
+              </span>
+            </td>
+            <td class="p-3.5">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl ${item.color} border border-brand-border flex items-center justify-center shrink-0 text-sm">
+                  <i class="${item.icon}"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-white text-xs">${item.name}</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">${item.dur}</div>
+                </div>
               </div>
-              <h3 class="font-bold text-white text-sm mb-1">${item.name}</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">${item.desc}</p>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-brand-border flex items-center justify-between">
-              <div>
-                <span class="text-[10px] text-slate-500 block">Harga</span>
-                <span class="text-sm font-bold text-yellow-400">${item.price}</span>
-              </div>
-              <a href="${orderUrl}" target="_blank" class="px-3.5 py-1.5 bg-yellow-400 hover:bg-yellow-300 text-black text-xs font-bold rounded-lg transition flex items-center gap-1.5 shadow-sm">
-                <i class="fa-brands fa-whatsapp text-sm"></i> Order via Admin 1
+            </td>
+            <td class="p-3.5 whitespace-nowrap">
+              <span class="bg-black/40 border border-brand-border text-slate-300 text-[11px] font-tech px-2 py-0.5 rounded">
+                ${item.type}
+              </span>
+            </td>
+            <td class="p-3.5 text-center whitespace-nowrap">
+              <span class="text-yellow-400 font-bold font-tech flex items-center justify-center gap-1">
+                <i class="fa-solid fa-star text-[10px]"></i> ${item.rating}
+              </span>
+            </td>
+            <td class="p-3.5 text-center whitespace-nowrap font-tech text-slate-300">
+              ${item.terjual}
+            </td>
+            <td class="p-3.5 text-center whitespace-nowrap font-tech text-slate-400">
+              ${item.stokAwal}
+            </td>
+            <td class="p-3.5 text-center whitespace-nowrap font-tech font-bold text-emerald-400">
+              ${item.stokReady}
+            </td>
+            <td class="p-3.5 text-right whitespace-nowrap font-bold text-yellow-400 font-tech">
+              ${item.priceDisplay}
+            </td>
+            <td class="p-3.5 text-center whitespace-nowrap">
+              <a href="${waLink}" target="_blank" class="px-3 py-1 bg-yellow-400 hover:bg-yellow-300 text-black text-[11px] font-bold rounded-lg shadow-sm inline-flex items-center gap-1.5 transition font-tech">
+                <i class="fa-brands fa-whatsapp text-xs"></i> Pesan
               </a>
-            </div>
-          </div>
+            </td>
+          </tr>
         `;
       }).join('');
     }
@@ -624,16 +884,13 @@
     function resetSearchAndFilter() {
       document.getElementById('appSearchInput').value = '';
       document.getElementById('appCategoryFilter').value = 'all';
-      renderAppCatalog();
+      renderAppTable();
     }
 
-    // Garansi Bersih: Setiap website dibuka / di-refresh, kembalikan ke beranda awal
+    // Inisialisasi awal saat halaman dibuka / refresh
     window.addEventListener('DOMContentLoaded', () => {
-      // Hapus data cache session jika ada
       sessionStorage.clear();
-      // Reset input pencarian dan filter
       resetSearchAndFilter();
-      // Selalu buka tab produk awal secara default
       switchTab('tab-products');
     });
   </script>
